@@ -13,6 +13,9 @@ import {
   Code,
   Database,
   Cloud,
+  Shield,
+  Globe,
+  Building2,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 
@@ -257,7 +260,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------------------
          SECTION 2: TRUST STRIP (Clients & Certifications)
       --------------------------------------------------------------------------- */}
-      <div className="py-8 bg-white border-b border-slate-200">
+      {/* <div className="py-8 bg-white border-b border-slate-200">
         <div className="flex flex-col items-center justify-between gap-8 px-6 mx-auto max-w-7xl md:flex-row">
           <div>
             <p className="mb-2 text-xs font-bold tracking-widest text-center uppercase text-slate-500 md:text-left">
@@ -265,7 +268,7 @@ export default function HomePage() {
             </p>
             <div className="flex gap-6 transition-all opacity-80 grayscale hover:grayscale-0">
               <div className="flex items-center gap-2 font-bold text-slate-800">
-                <Award className="text-blue-600" /> Microsoft
+                <Shield className="text-blue-600" /> Microsoft
               </div>
               <div className="flex items-center gap-2 font-bold text-slate-800">
                 <Award className="text-yellow-600" /> AWS Partner
@@ -285,12 +288,76 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+      </div> */}
+      <div className="py-12 -mt-5 bg-slate-50">
+        <div className="px-6 mx-auto max-w-7xl">
+          <div className="overflow-hidden bg-white border shadow-sm rounded-2xl border-slate-100">
+            <div className="grid md:grid-cols-2">
+              {/* Certifications */}
+              <div className="p-8 border-b md:border-b-0 md:border-r border-slate-100">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
+                  <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600">
+                    Trusted Partners
+                  </h3>
+                </div>
+                <div className="flex gap-8">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-xl">
+                      <Building2 className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">Microsoft</p>
+                      <p className="text-xs text-slate-500">Partner Network</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-12 h-12 bg-orange-50 rounded-xl">
+                      <Globe className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-slate-900">AWS</p>
+                      <p className="text-xs text-slate-500">Select Partner</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Alumni */}
+              <div className="p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-2 h-8 bg-green-600 rounded-full"></div>
+                  <h3 className="text-sm font-semibold tracking-wide uppercase text-slate-600">
+                    Alumni Network
+                  </h3>
+                </div>
+                <div className="flex items-center gap-4 text-slate-700">
+                  <span className="px-3 py-1 font-medium transition-colors rounded-lg bg-slate-100 hover:bg-slate-200">
+                    Google
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <span className="px-3 py-1 font-medium transition-colors rounded-lg bg-slate-100 hover:bg-slate-200">
+                    Amazon
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <span className="px-3 py-1 font-medium transition-colors rounded-lg bg-slate-100 hover:bg-slate-200">
+                    Deloitte
+                  </span>
+                  <span className="text-slate-300">•</span>
+                  <span className="px-3 py-1 font-medium transition-colors rounded-lg bg-slate-100 hover:bg-slate-200">
+                    Infosys
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ---------------------------------------------------------------------------
          SECTION 3: PROGRAM EXPLORER (Courses)
       --------------------------------------------------------------------------- */}
-      <section className="px-6 py-24 mx-auto max-w-7xl">
+      <section className="px-6 py-10 mx-auto max-w-7xl">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold md:text-4xl text-slate-900">
             Explore Our Programs
