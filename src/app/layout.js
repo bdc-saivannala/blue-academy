@@ -1,23 +1,27 @@
+"use client"; // Needed for usePathname
+
 import "./globals.css";
+import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export const metadata = {
-  title: "Blue Academy - Future of Tech Education",
-  description: "Master Data Science, AI, and Full Stack Development.",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+
+  // Check if we are in the Admin section
+  const isAdminPage = pathname.startsWith("/admin");
+
   return (
     <html lang="en">
-      <body className="bg-slate-50 text-slate-900 font-sans">
-        <Navbar />
-        <main className="min-h-screen pt-20">
-          {" "}
-          {/* pt-20 pushes content below fixed navbar */}
-          {children}
-        </main>
-        <Footer />
+      <body className="font-sans bg-slate-50 text-slate-900">
+        {/* Only show Main Navbar if NOT on an Admin page */}
+        {!isAdminPage && <Navbar />}
+
+        {/* Main Content */}
+        <main className={!isAdminPage ? "min-h-screen" : ""}>{children}</main>
+
+        {/* Only show Footer if NOT on an Admin page */}
+        {!isAdminPage && <Footer />}
       </body>
     </html>
   );

@@ -1,4 +1,6 @@
-import React from "react";
+"use client"; // Required for form interactivity
+
+import React, { useState } from "react";
 import {
   Mail,
   Phone,
@@ -11,6 +13,58 @@ import {
 import Navbar from "@/components/Navbar";
 
 export default function ContactPage() {
+  // State for Form Data
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
+  // Handle Input Change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Handle Form Submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+          experience: "General Inquiry",
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("Message Sent Successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        }); // Reset form
+      } else {
+        setStatus("Failed to send message. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Error connecting to server.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* 1. HERO HEADER (Dark Theme) */}
@@ -101,9 +155,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* RIGHT: Contact Form (Clean White) */}
+          {/* RIGHT: Contact Form (Connected to Backend) */}
           <div className="p-10 bg-white lg:col-span-7 lg:p-16">
-            <form className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="group">
                   <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
@@ -111,6 +165,10 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
                     placeholder="John"
                   />
@@ -121,6 +179,10 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
                     placeholder="Doe"
                   />
@@ -134,6 +196,10 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
                     placeholder="john@example.com"
                   />
@@ -144,6 +210,9 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
                     placeholder="+91 987..."
                   />
@@ -156,53 +225,71 @@ export default function ContactPage() {
                 </label>
                 <textarea
                   rows="4"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
                   placeholder="How can we help you?"
                 ></textarea>
               </div>
 
               <div className="pt-2">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg">
-                  Send Message <Send size={20} />
+                <button
+                  disabled={status === "Sending..."}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {status === "Sending..." ? "Sending..." : "Send Message"}{" "}
+                  <Send size={20} />
                 </button>
+                {status && (
+                  <p
+                    className={`text-center mt-4 text-sm font-bold ${
+                      status.includes("Success")
+                        ? "text-green-600"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {status}
+                  </p>
+                )}
               </div>
             </form>
           </div>
         </div>
+      </div>
 
-        {/* 3. FAQ SECTION (Bonus: Reduces support queries) */}
-        <div className="max-w-3xl mx-auto mt-24">
-          <h2 className="mb-10 text-3xl font-bold text-center text-slate-900">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {[
-              {
-                q: "Where is Blue Academy located?",
-                a: "Our headquarters are in Hyderabad, Financial District. However, all our courses are available online globally.",
-              },
-              {
-                q: "Can I get a refund if I cancel?",
-                a: "Yes, we offer a 7-day no-questions-asked refund policy for all our self-paced courses.",
-              },
-              {
-                q: "Do you provide corporate training?",
-                a: "Absolutely. We have trained teams at 50+ Fortune 500 companies. Contact us for a custom quote.",
-              },
-            ].map((faq, idx) => (
-              <div
-                key={idx}
-                className="p-6 transition-shadow bg-white border shadow-sm rounded-2xl border-slate-200 hover:shadow-md"
-              >
-                <h4 className="flex items-center gap-3 mb-2 font-bold text-slate-900">
-                  <MessageSquare className="w-5 h-5 text-blue-500" /> {faq.q}
-                </h4>
-                <p className="pl-8 text-sm leading-relaxed text-slate-600">
-                  {faq.a}
-                </p>
-              </div>
-            ))}
-          </div>
+      {/* 3. FAQ SECTION */}
+      <div className="max-w-3xl px-6 pb-24 mx-auto mt-24">
+        <h2 className="mb-10 text-3xl font-bold text-center text-slate-900">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-4">
+          {[
+            {
+              q: "Where is Blue Academy located?",
+              a: "Our headquarters are in Hyderabad, Financial District. However, all our courses are available online globally.",
+            },
+            {
+              q: "Can I get a refund if I cancel?",
+              a: "Yes, we offer a 7-day no-questions-asked refund policy for all our self-paced courses.",
+            },
+            {
+              q: "Do you provide corporate training?",
+              a: "Absolutely. We have trained teams at 50+ Fortune 500 companies. Contact us for a custom quote.",
+            },
+          ].map((faq, idx) => (
+            <div
+              key={idx}
+              className="p-6 transition-shadow bg-white border shadow-sm rounded-2xl border-slate-200 hover:shadow-md"
+            >
+              <h4 className="flex items-center gap-3 mb-2 font-bold text-slate-900">
+                <MessageSquare className="w-5 h-5 text-blue-500" /> {faq.q}
+              </h4>
+              <p className="pl-8 text-sm leading-relaxed text-slate-600">
+                {faq.a}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
