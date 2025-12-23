@@ -896,7 +896,7 @@ export default async function CourseDetailPage({ params }) {
               </h2>
               <p className="mb-6 text-slate-600">
                 Apply your skills in real-world scenarios with these
-                comprehensive projects[cite: 236].
+                comprehensive projects.
               </p>
 
               <div className="space-y-8">
