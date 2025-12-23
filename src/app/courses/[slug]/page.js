@@ -6,18 +6,26 @@ import {
   Clock,
   BarChart,
   CheckCircle,
-  PlayCircle,
+  Play,
   MonitorPlay,
   FileText,
   Award,
   Smartphone,
   ChevronDown,
-  Users,
-  Lock,
+  AlertCircle,
+  HelpCircle,
+  Code,
+  Terminal,
+  Layers,
+  Cpu,
+  Target,
 } from "lucide-react";
 
 // Components
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import ApplicationForm from "@/components/ApplicationForm";
+import Instructors from "@/components/Instructors";
 
 // --- 1. FETCH DATA ---
 async function getCourse(slug) {
@@ -34,51 +42,113 @@ async function getCourse(slug) {
   }
 }
 
+// --- 2. ENHANCED CURRICULUM COMPONENT ---
+const RichCurriculum = ({ modules }) => {
+  return (
+    <div className="overflow-hidden bg-white border divide-y rounded-lg border-slate-200 divide-slate-200">
+      {modules.map((module, i) => (
+        <details key={i} className="transition-colors group open:bg-slate-50">
+          <summary className="flex items-center justify-between p-5 font-semibold list-none cursor-pointer text-slate-800 hover:bg-slate-50">
+            <div className="flex items-center gap-3">
+              <span className={`transition-transform group-open:rotate-180`}>
+                <ChevronDown size={20} className="text-slate-400" />
+              </span>
+              <span className="text-lg">{module.title}</span>
+            </div>
+            <span className="text-xs font-medium tracking-wide uppercase text-slate-500">
+              {module.sections
+                ? `${module.sections.length} Sections`
+                : "View Content"}
+            </span>
+          </summary>
+
+          <div className="p-5 pt-0 text-sm bg-white border-t border-slate-100 text-slate-600 group-open:animate-in slide-in-from-top-2">
+            {/* Rich Text Details (from CustomEditor) */}
+            {module.details && (
+              <div
+                className="pl-8 prose-sm prose prose-slate max-w-none"
+                dangerouslySetInnerHTML={{ __html: module.details }}
+              />
+            )}
+          </div>
+        </details>
+      ))}
+    </div>
+  );
+};
+
 export default async function CourseDetailPage({ params }) {
   const { slug } = await params;
   const course = await getCourse(slug);
 
-  if (!course) return <div className="py-20 text-center">Course Not Found</div>;
+  if (!course)
+    return (
+      <div className="py-20 text-xl font-bold text-center">
+        Course Not Found
+      </div>
+    );
+
+  // Fallback for Prerequisites if rich text is empty (matching your image content)
+  const fallbackPrerequisites = `
+    <h4 class="font-bold text-slate-900 mb-1">Basic Python Programming (Essential Concepts Required)</h4>
+    <p class="mb-3">Core python concepts including python data types, Functions & arguments, Loops and conditionals, File handling (read/write JSON, text, CSV), Error Handling & OOPs.</p>
+    
+    <h4 class="font-bold text-slate-900 mb-1">Python Packages & Modules</h4>
+    <p class="mb-3">Fair understanding/experience with pandas, json, requests, numpy, matplotlib, seaborn, os, logging, and other common python packages.</p>
+    
+    <h4 class="font-bold text-slate-900 mb-1">Understanding of APIs and JSON</h4>
+    <p class="mb-3">Understanding of core IT and Software engineering concepts including but not limited to APIs, HTTP, JSON, Parsing JSON, Postman, CICD, Cloud Platforms.</p>
+
+    <h4 class="font-bold text-slate-900 mb-1">No Prior AI/ML Knowledge Required</h4>
+    <p>Program covers very foundations of the topic, no prior experience to AI ML concepts needed.</p>
+  `;
 
   return (
     <div className="min-h-screen font-sans bg-white text-slate-900">
       {/* =========================================
-          1. HERO HEADER (Dark/Light Hybrid)
+          HERO HEADER
       ========================================= */}
-      <div className="bg-[#1C1D1F] text-white pt-24 pb-12">
+      <div className="bg-[#1C1D1F] text-white pt-28 pb-12 relative z-10">
         <div className="px-6 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-            {/* LEFT: Course Info (Span 2 cols) */}
-            <div className="space-y-4 lg:col-span-2">
-              {/* Breadcrumbs */}
-              <div className="flex items-center gap-2 mb-4 text-sm font-bold tracking-wide text-blue-300 uppercase">
-                <Link href="/" className="hover:underline">
+            {/* LEFT: Course Info */}
+            <div className="space-y-5 lg:col-span-2">
+              <div className="flex items-center gap-2 text-sm font-bold text-[#C0C4FC] uppercase tracking-wide">
+                <Link href="/" className="transition-colors hover:text-white">
                   Home
-                </Link>{" "}
-                /
-                <Link href="/courses" className="hover:underline">
+                </Link>
+                <span className="text-slate-400">/</span>
+                <Link
+                  href="/courses"
+                  className="transition-colors hover:text-white"
+                >
                   Courses
-                </Link>{" "}
-                /<span className="text-white truncate">{course.title}</span>
+                </Link>
+                <span className="text-slate-400">/</span>
+                <span className="font-medium text-white truncate">
+                  {course.category || "Development"}
+                </span>
               </div>
 
-              {/* Title */}
               <h1 className="text-3xl font-extrabold leading-tight md:text-4xl">
                 {course.title}
               </h1>
 
-              {/* Subtitle */}
               <div
-                className="text-lg leading-relaxed text-slate-300 line-clamp-3"
+                className="max-w-2xl text-lg leading-relaxed text-slate-200"
                 dangerouslySetInnerHTML={{
-                  __html: course.subtitle?.replace(/<[^>]+>/g, ""),
+                  __html: course.subtitle?.slice(0, 180) + "...",
                 }}
               />
 
-              {/* Ratings & Meta */}
-              <div className="flex flex-wrap items-center gap-6 pt-2 text-sm">
-                <div className="flex items-center gap-1 font-bold text-yellow-400">
-                  <span className="text-base">{course.rating}</span>
+              <div className="flex flex-wrap items-center gap-4 pt-2 text-sm">
+                <span className="bg-[#ECEB98] text-slate-900 px-2 py-0.5 font-bold text-xs uppercase rounded-sm">
+                  Bestseller
+                </span>
+                <div className="flex items-center gap-1 text-[#E59819] font-bold">
+                  <span className="mr-1 text-base text-white">
+                    {course.rating || "4.8"}
+                  </span>
                   <div className="flex">
                     <Star size={14} fill="currentColor" />
                     <Star size={14} fill="currentColor" />
@@ -86,169 +156,203 @@ export default async function CourseDetailPage({ params }) {
                     <Star size={14} fill="currentColor" />
                     <Star size={14} fill="currentColor" />
                   </div>
-                  <span className="ml-1 text-blue-300 underline cursor-pointer">
-                    ({course.reviews?.length || 0} ratings)
-                  </span>
                 </div>
-                <div className="flex items-center gap-1 text-white">
-                  <Users size={16} /> 15,000+ students
-                </div>
+                <span className="text-[#C0C4FC] underline cursor-pointer">
+                  (2,450 ratings)
+                </span>
+                <span className="text-white">15,000+ students</span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-6 pt-2 text-sm text-white">
+              <div className="flex flex-wrap items-center gap-6 pt-2 text-sm font-medium text-white">
+                <div className="flex items-center gap-2">
+                  <AlertCircle size={16} /> Last updated{" "}
+                  {new Date().toLocaleDateString("en-US", {
+                    month: "2-digit",
+                    year: "numeric",
+                  })}
+                </div>
                 <div className="flex items-center gap-2">
                   <Globe size={16} /> English
                 </div>
                 <div className="flex items-center gap-2">
-                  <BarChart size={16} /> {course.level || "Beginner to Pro"}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock size={16} /> Last updated{" "}
-                  {new Date().toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  <BarChart size={16} />{" "}
+                  {course.level || "Intermediate to Advanced"}
                 </div>
               </div>
-
-              {/* Badges */}
-              {course.badges && course.badges.length > 0 && (
-                <div className="flex gap-2 pt-2">
-                  {course.badges.map((badge, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 text-xs font-bold bg-yellow-400 rounded text-slate-900"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
 
-            {/* RIGHT: Empty Col (Placeholder for Floating Card) */}
+            {/* RIGHT: Empty Col */}
             <div className="hidden lg:block lg:col-span-1"></div>
           </div>
         </div>
       </div>
 
       {/* =========================================
-          2. MAIN CONTENT LAYOUT
+          MAIN CONTENT LAYOUT
       ========================================= */}
       <div className="relative px-6 mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          {/* --- LEFT COLUMN (Course Details) --- */}
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+          {/* --- LEFT COLUMN (Content) --- */}
           <div className="py-10 space-y-12 lg:col-span-2">
-            {/* WHAT YOU'LL LEARN */}
-            <section className="p-6 border rounded-lg border-slate-200 bg-slate-50/50">
+            {/* 1. HERO FEATURES (What you'll learn) */}
+            <section className="p-6 bg-white border rounded-lg border-slate-300">
               <h2 className="mb-6 text-xl font-bold text-slate-900">
                 What you'll learn
               </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                {/* Hero Features */}
-                {course.heroFeatures &&
-                  course.heroFeatures.map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <CheckCircle
-                        size={18}
-                        className="text-slate-600 mt-0.5 shrink-0"
-                      />
-                      <span className="text-sm text-slate-700">{item}</span>
-                    </div>
-                  ))}
-                {/* Skills */}
-                {course.skills &&
-                  course.skills.map((skill, i) => (
-                    <div key={`skill-${i}`} className="flex items-start gap-3">
-                      <CheckCircle
-                        size={18}
-                        className="text-slate-600 mt-0.5 shrink-0"
-                      />
-                      <span className="text-sm text-slate-700">
-                        Master {skill}
-                      </span>
-                    </div>
-                  ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6">
+                {(course.heroFeatures || []).map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 text-sm text-slate-700"
+                  >
+                    <CheckCircle
+                      size={16}
+                      className="text-slate-900 mt-0.5 shrink-0"
+                    />
+                    <span>{item}</span>
+                  </div>
+                ))}
               </div>
             </section>
 
-            {/* TARGET AUDIENCE */}
-            {course.targetAudience && course.targetAudience.length > 0 && (
+            {/* 2. SKILLS LEARNED (NEW SECTION) */}
+            {course.skills && course.skills.length > 0 && (
               <section>
-                <h2 className="mb-4 text-2xl font-bold text-slate-900">
-                  Who this course is for
+                <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+                  <Cpu size={24} className="text-blue-600" /> Skills You Will
+                  Master
                 </h2>
-                <ul className="space-y-2">
-                  {course.targetAudience.map((audience, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle
-                        size={18}
-                        className="text-slate-600 mt-0.5 shrink-0"
-                      />
-                      <span className="text-sm text-slate-700">{audience}</span>
-                    </li>
+                <div className="flex flex-wrap gap-2">
+                  {course.skills.map((skill, index) => (
+                    <span
+                      key={index}
+                      className="px-4 py-2 text-sm font-medium text-blue-800 border border-blue-100 rounded-full bg-blue-50"
+                    >
+                      {skill}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
-            {/* COURSE CONTENT (Curriculum) */}
+            {/* 3. COURSE OUTCOMES (NEW SECTION - Rich Text) */}
+            {course.outcomes && (
+              <section>
+                <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+                  <Target size={24} className="text-blue-600" /> Course Outcomes
+                </h2>
+                <div
+                  className="text-sm leading-relaxed prose prose-slate max-w-none text-slate-700"
+                  dangerouslySetInnerHTML={{ __html: course.outcomes }}
+                />
+              </section>
+            )}
+
+            {/* 4. COURSE CONTENT (Curriculum) */}
             <section>
               <h2 className="mb-4 text-2xl font-bold text-slate-900">
                 Course Content
               </h2>
               <div className="flex items-center gap-2 mb-4 text-sm text-slate-600">
-                <span>• {course.curriculum?.length || 0} sections</span>
-                <span>• {course.duration} total length</span>
+                <span>{course.curriculum?.length || 0} Modules</span> •{" "}
+                <span>{course.duration || "40h"} total length</span>
               </div>
+              <RichCurriculum modules={course.curriculum || []} />
+            </section>
 
-              <div className="overflow-hidden border divide-y rounded-lg border-slate-200 divide-slate-200">
-                {course.curriculum &&
-                  course.curriculum.map((module, i) => (
-                    <div key={module._id || i} className="group">
-                      <div className="flex items-center justify-between p-4 transition-colors cursor-pointer bg-slate-50 hover:bg-slate-100">
-                        <div className="flex items-center gap-3 font-bold text-slate-800">
-                          <ChevronDown
-                            size={18}
-                            className="transition-transform text-slate-500 group-hover:rotate-180"
-                          />
-                          {module.title}
-                        </div>
-                        <span className="text-xs text-slate-500">
-                          3 lectures • 45m
-                        </span>
+            {/* 5. CAPSTONE PROJECTS (Rich Text Support) */}
+            {course.capstones && course.capstones.length > 0 && (
+              <section className="p-6 border rounded-lg bg-slate-50 border-slate-200">
+                <h2 className="mb-4 text-2xl font-bold text-slate-900">
+                  Capstone Projects
+                </h2>
+                <p className="mb-6 text-slate-600">
+                  Apply your skills in real-world scenarios with these
+                  comprehensive projects.
+                </p>
+
+                <div className="space-y-8">
+                  {course.capstones.map((project, idx) => (
+                    <div key={idx} className="flex gap-4">
+                      <div className="flex items-center justify-center w-12 h-12 font-bold text-blue-600 bg-blue-100 rounded-full shrink-0">
+                        {idx + 1}
                       </div>
-                      {module.details && (
-                        <div className="p-4 space-y-3 bg-white">
-                          <div className="flex items-center justify-between text-sm text-slate-600">
-                            <div className="flex items-center gap-3">
-                              <MonitorPlay
-                                size={16}
-                                className="text-slate-400"
-                              />
-                              {module.details}
-                            </div>
-                            <span className="text-slate-400">10:00</span>
-                          </div>
-                        </div>
-                      )}
+                      <div className="w-full">
+                        <h3 className="text-lg font-bold text-slate-900">
+                          {project.title}
+                        </h3>
+                        {/* Render Rich Text for Project Details */}
+                        <div
+                          className="mt-2 text-sm prose-sm prose text-slate-600 max-w-none"
+                          dangerouslySetInnerHTML={{ __html: project.details }}
+                        />
+                      </div>
                     </div>
                   ))}
+                </div>
+              </section>
+            )}
+
+            {/* 6. REQUIREMENTS & PREREQUISITES (UPDATED - STACKED LAYOUT) */}
+            <section>
+              <h2 className="mb-6 text-2xl font-bold text-slate-900">
+                Requirements & Eligibility
+              </h2>
+
+              {/* Stacked Vertical Layout */}
+              <div className="flex flex-col gap-10">
+                {/* Prerequisites (Full Width) */}
+                <div>
+                  <h4 className="flex items-center gap-2 pb-2 mb-4 text-lg font-bold border-b text-slate-800">
+                    <Terminal size={20} className="text-slate-600" />{" "}
+                    Prerequisites
+                  </h4>
+                  <div
+                    className="text-sm leading-relaxed prose prose-slate max-w-none text-slate-700 marker:text-slate-900"
+                    dangerouslySetInnerHTML={{
+                      __html: course.prerequisites || fallbackPrerequisites,
+                    }}
+                  />
+                </div>
+
+                {/* Target Audience (Full Width - Below Prerequisites) */}
+                <div>
+                  <h4 className="flex items-center gap-2 pb-2 mb-4 text-lg font-bold border-b text-slate-800">
+                    <CheckCircle size={20} className="text-slate-600" /> Who
+                    this course is for
+                  </h4>
+                  {course.targetAudience && course.targetAudience.length > 0 ? (
+                    <ul className="grid grid-cols-1 gap-2 text-sm md:grid-cols-2 text-slate-700">
+                      {course.targetAudience.map((aud, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                          {aud}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <ul className="pl-5 space-y-1 text-sm list-disc text-slate-700">
+                      <li>Students</li>
+                      <li>Professionals seeking career switch</li>
+                      <li>Data Analysts</li>
+                    </ul>
+                  )}
+                </div>
               </div>
             </section>
 
-            {/* REQUIREMENTS */}
+            {/* 7. DESCRIPTION */}
             <section>
               <h2 className="mb-4 text-2xl font-bold text-slate-900">
-                Requirements
+                Description
               </h2>
               <div
-                className="text-sm prose prose-slate max-w-none text-slate-700"
-                dangerouslySetInnerHTML={{ __html: course.prerequisites }}
+                className="text-sm leading-relaxed prose prose-slate max-w-none text-slate-700"
+                dangerouslySetInnerHTML={{ __html: course.subtitle }}
               />
             </section>
 
-            {/* JOB ROLES */}
+            {/* 8. CAREER OPPORTUNITIES (Job Roles) */}
             {course.jobRoles && course.jobRoles.length > 0 && (
               <section>
                 <h2 className="mb-6 text-2xl font-bold text-slate-900">
@@ -264,209 +368,176 @@ export default async function CourseDetailPage({ params }) {
                       <p className="text-sm text-slate-600">
                         Average Salary: {job.salary}
                       </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        Market Demand: {job.demand}
-                      </p>
+                      <div className="flex items-center gap-2 mt-2">
+                        <span className="text-xs font-bold uppercase text-slate-500">
+                          Demand:
+                        </span>
+                        <span
+                          className={`text-xs px-2 py-0.5 rounded ${
+                            job.demand === "High" || job.demand === "Very High"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {job.demand}
+                        </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </section>
             )}
 
-            {/* INSTRUCTOR */}
+            {/* 9. INSTRUCTOR */}
             <section>
-              <h2 className="mb-6 text-2xl font-bold text-slate-900">
-                Instructor
-              </h2>
-              {course.instructors &&
-                course.instructors.map((inst, i) => (
-                  <div key={inst._id || i} className="mb-8">
-                    <div className="flex items-center gap-4 mb-4">
-                      <img
-                        src={inst.image}
-                        alt={inst.name}
-                        className="object-cover w-16 h-16 border-2 rounded-full border-slate-100"
-                      />
-                      <div>
-                        <h3 className="text-lg font-bold text-blue-600 underline cursor-pointer">
-                          {inst.name}
-                        </h3>
-                        <p className="text-sm text-slate-500">
-                          {inst.role} at {inst.company}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mb-4 text-sm leading-relaxed text-slate-600">
-                      {inst.name} is a top-rated instructor with extensive
-                      experience in the industry. He has taught thousands of
-                      students and helped them land jobs at top tech companies.
-                    </p>
-                  </div>
-                ))}
+              <Instructors list={course.instructors || []} />
             </section>
 
-            {/* REVIEWS / SUCCESS STORIES */}
+            {/* 10. REVIEWS */}
             <section>
               <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <Star size={24} className="text-yellow-400 fill-yellow-400" />
-                {course.rating} course rating
+                <Star size={24} className="fill-[#E59819] text-[#E59819]" />{" "}
+                {course.rating || "4.8"} course rating
               </h2>
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                {course.reviews &&
-                  course.reviews.map((review, i) => (
-                    <div
-                      key={review._id || i}
-                      className="p-6 border-t border-slate-200"
-                    >
-                      <div className="flex items-center gap-3 mb-4">
-                        <img
-                          src={review.image}
-                          className="w-10 h-10 rounded-full bg-slate-200"
-                          alt={review.name}
-                        />
-                        <div>
-                          <p className="text-sm font-bold text-slate-900">
-                            {review.name}
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            {review.role}
-                          </p>
-                          <div className="flex text-yellow-400">
-                            <Star size={12} fill="currentColor" />
-                            <Star size={12} fill="currentColor" />
-                            <Star size={12} fill="currentColor" />
-                            <Star size={12} fill="currentColor" />
-                            <Star size={12} fill="currentColor" />
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        className="text-sm leading-relaxed text-slate-600"
-                        dangerouslySetInnerHTML={{ __html: review.text }}
+                {(course.reviews || []).slice(0, 4).map((review, i) => (
+                  <div key={i} className="p-6 border-t border-slate-200">
+                    <div className="flex items-center gap-3 mb-4">
+                      <img
+                        src={review.image || "https://via.placeholder.com/40"}
+                        className="object-cover w-10 h-10 rounded-full bg-slate-200"
+                        alt="User"
                       />
+                      <div>
+                        <p className="text-sm font-bold text-slate-900">
+                          {review.name}
+                        </p>
+                        <p className="text-xs text-slate-500">{review.role}</p>
+                      </div>
                     </div>
-                  ))}
+                    {/* Review Text Rendered as Rich Text */}
+                    <div
+                      className="text-sm leading-relaxed prose-sm prose text-slate-700 max-w-none"
+                      dangerouslySetInnerHTML={{ __html: review.text }}
+                    />
+                  </div>
+                ))}
               </div>
             </section>
 
-            {/* FAQs */}
-            {course.faqs && course.faqs.length > 0 && (
-              <section>
-                <h2 className="mb-6 text-2xl font-bold text-slate-900">
-                  Frequently Asked Questions
-                </h2>
-                <div className="space-y-4">
-                  {course.faqs.map((faq, i) => (
+            {/* 11. FAQs */}
+            <section className="p-6 border rounded-lg bg-slate-50 border-slate-200">
+              <h2 className="mb-4 text-xl font-bold text-slate-900">
+                Frequently Asked Questions
+              </h2>
+              <div className="space-y-4">
+                {(course.faqs || []).map((faq, i) => (
+                  <div
+                    key={i}
+                    className="pb-4 border-b border-slate-200 last:border-0"
+                  >
+                    <h4 className="flex items-center gap-2 mb-2 text-sm font-bold text-slate-800">
+                      <HelpCircle size={16} className="text-slate-500" />{" "}
+                      {faq.q}
+                    </h4>
                     <div
-                      key={faq._id || i}
-                      className="p-4 border rounded-lg border-slate-200"
-                    >
-                      <h3 className="mb-2 font-bold text-slate-900">{faq.q}</h3>
-                      <div
-                        className="text-sm text-slate-600"
-                        dangerouslySetInnerHTML={{ __html: faq.a }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                      className="pl-6 text-sm prose-sm prose text-slate-600 max-w-none"
+                      dangerouslySetInnerHTML={{ __html: faq.a }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
-          {/* --- RIGHT COLUMN (FLOATING SIDEBAR) --- */}
+          {/* --- RIGHT COLUMN (STICKY SIDEBAR) --- */}
           <div className="relative lg:col-span-1">
-            <div className="sticky z-20 mb-5 top-24 -mt-80">
-              {/* Negative margin pulls it up into Hero area */}
-              {/* 1. VIDEO PREVIEW CARD */}
-              <div className="mb-6 overflow-hidden bg-white border rounded-lg shadow-xl border-slate-200">
-                <div className="relative h-48 cursor-pointer bg-slate-900 group">
+            <div className="sticky top-24 -mt-[320px] z-20 space-y-6">
+              {/* 1. PREVIEW + APPLICATION FORM CARD */}
+              <div className="overflow-hidden bg-white border rounded-lg shadow-xl border-slate-200">
+                {/* Video/Image Preview */}
+                <div className="relative h-48 border-b cursor-pointer bg-slate-900 group border-slate-200">
                   <img
-                    src={course.image}
+                    src={
+                      course.image ||
+                      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80"
+                    }
                     alt="Preview"
-                    className="object-cover w-full h-full transition-opacity opacity-60 group-hover:opacity-40"
+                    className="object-cover w-full h-full transition-opacity opacity-90 group-hover:opacity-75"
                   />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex items-center justify-center w-16 h-16 transition-transform bg-white rounded-full shadow-lg group-hover:scale-110">
-                      <PlayCircle
+                      <Play
                         size={32}
                         className="text-slate-900 fill-slate-900"
                       />
                     </div>
                   </div>
-                  <p className="absolute w-full text-sm font-bold text-center text-white bottom-4">
+                  <p className="absolute w-full text-sm font-bold text-center text-white bottom-4 drop-shadow-md">
                     Preview this course
                   </p>
                 </div>
 
+                {/* Content & Form */}
                 <div className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-3 mb-6">
                     <span className="text-3xl font-extrabold text-slate-900">
-                      ₹{course.fee}
+                      {course.fee
+                        ? `₹ ${parseInt(course.fee).toLocaleString()}`
+                        : "₹ 49,999"}
                     </span>
                     <span className="text-lg line-through text-slate-400">
-                      ₹{Math.floor(course.fee * 5)}
+                      ₹ 80,000
                     </span>
                     <span className="text-xs font-bold text-red-600">
-                      80% OFF
+                      38% OFF
                     </span>
                   </div>
 
-                  <p className="flex items-center gap-1 mb-4 text-sm font-bold text-red-600">
-                    <Clock size={16} /> 1 day left at this price!
+                  <p className="text-[#B32D0F] flex items-center gap-1 text-sm font-bold mb-6">
+                    <Clock size={16} /> Enrolling for{" "}
+                    {course.nextBatch || "Upcoming"} Batch
                   </p>
 
-                  {course.nextBatch && (
-                    <p className="mb-4 text-sm text-slate-600">
-                      <span className="font-bold">Next Batch:</span>{" "}
-                      {course.nextBatch}
-                    </p>
-                  )}
+                  <div className="mb-6">
+                    <ApplicationForm
+                      courseTitle={course.title}
+                      courseSlug={course.slug}
+                    />
+                  </div>
 
-                  <button className="w-full py-3.5 bg-blue-600 hover:bg-blue-800 text-white font-bold text-lg rounded mb-3 transition-colors">
-                    Add to cart
-                  </button>
-                  <button className="w-full py-3.5 bg-white border-2 border-slate-900 text-slate-900 font-bold text-lg rounded hover:bg-slate-50 hover:text-blue-600 hover:border-blue-800 transition-colors">
-                    Buy now
-                  </button>
-
-                  <p className="mt-3 text-xs text-center text-slate-500">
-                    30-Day Money-Back Guarantee
-                  </p>
-
-                  <div className="mt-6 space-y-3 text-sm text-slate-600">
+                  <div className="pt-6 mt-6 space-y-3 text-sm border-t text-slate-600 border-slate-100">
                     <p className="font-bold text-slate-900">
                       This course includes:
                     </p>
-                    <div className="flex items-center gap-2">
-                      <MonitorPlay size={16} /> {course.duration} on-demand
-                      video
+                    <div className="flex items-center gap-3">
+                      <MonitorPlay size={16} className="text-slate-400" />{" "}
+                      {course.duration || "40 hours"} Instructor-led training
                     </div>
-                    <div className="flex items-center gap-2">
-                      <FileText size={16} /> {course.curriculum?.length || 0}{" "}
-                      sections
+                    <div className="flex items-center gap-3">
+                      <Code size={16} className="text-slate-400" />{" "}
+                      {course.capstones?.length || 2} Capstone Projects
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Smartphone size={16} /> Access on mobile and TV
+                    <div className="flex items-center gap-3">
+                      <Smartphone size={16} className="text-slate-400" /> Access
+                      on mobile and TV
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Award size={16} /> Certificate of completion
+                    <div className="flex items-center gap-3">
+                      <Award size={16} className="text-slate-400" />{" "}
+                      Certification of completion
                     </div>
-                  </div>
-
-                  <div className="flex justify-between pt-6 mt-6 text-sm font-bold underline border-t cursor-pointer border-slate-100 text-slate-900">
-                    <span>Share</span>
-                    <span>Gift this course</span>
-                    <span>Apply Coupon</span>
                   </div>
                 </div>
               </div>
-              {/* 2. CORPORATE TRAINING BOX */}
+
+              {/* 2. CORPORATE BOX */}
               <div className="p-6 bg-white border rounded-lg shadow-sm border-slate-200">
                 <h3 className="mb-2 text-lg font-bold text-slate-900">
                   Training 5 or more people?
                 </h3>
                 <p className="mb-4 text-sm text-slate-600">
-                  Get your team access to 25,000+ top courses anytime, anywhere.
+                  Get your team access to top GenAI & LLM courses anytime,
+                  anywhere.
                 </p>
                 <button className="w-full py-3 text-sm font-bold transition-colors border rounded border-slate-900 text-slate-900 hover:bg-slate-50">
                   Try Blue Business
