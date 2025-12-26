@@ -16,12 +16,59 @@ import {
   FileText,
   Clock,
   Shield,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("All");
+
+  // --- STATE FOR WHY CHOOSE US CAROUSEL ---
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const features = [
+    {
+      icon: MonitorPlay,
+      title: "Live, hands-on delivery",
+      text: "Instructor-led sessions with guided labs, assignments, assessments, and real projects.",
+    },
+    {
+      icon: Award,
+      title: "Certification guaranteed",
+      text: "Every course maps to a specific certification (Microsoft / Google / AWS) with readiness checks.",
+    },
+    {
+      icon: Briefcase,
+      title: "Role-ready outcomes",
+      text: "Skills built for job roles in Agentic AI and GenAI—tools, workflows, and implementation depth.",
+    },
+    {
+      icon: Shield,
+      title: "AI-driven experience",
+      text: "Learn Agentic AI while experiencing it: AI copilots, agent-based workflows, and smart practice.",
+    },
+    {
+      icon: Users,
+      title: "10+ years experience",
+      text: "Proven facilitation expertise with industry-grade content design and practical execution.",
+    },
+    {
+      icon: Clock,
+      title: "Always-on assistance",
+      text: "Dedicated support for environment setup, tools, debugging, and lab execution.",
+    },
+  ];
+
+  // --- AUTOPLAY EFFECT FOR CAROUSEL ---
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % features.length);
+    }, 3500); // Change slide every 3.5 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [features.length]);
 
   // --- FETCH REAL COURSES FROM BACKEND ---
   useEffect(() => {
@@ -477,181 +524,118 @@ export default function HomePage() {
       </section>
 
       {/* =========================================
-          5. ADVANTAGES SECTION (Bento Grid Design)
+          5. WHY CHOOSE US (Bento Grid Layout)
       ========================================= */}
-      <section className="relative py-24 border-t bg-blue-50 border-slate-100">
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
-
-        <div className="relative px-6 mx-auto max-w-7xl">
-          {/* Section Header */}
-          <div className="mb-16 text-center">
-            <span className="inline-block px-4 py-1.5 text-sm font-bold tracking-wider text-blue-600 uppercase bg-white rounded-full">
-              Why Choose Us
+      <section className="relative py-24 overflow-hidden bg-slate-50">
+        <div className="relative z-10 px-6 mx-auto max-w-7xl">
+          {/* Header */}
+          <div className="max-w-3xl mb-16">
+            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
+              WHY CHOOSE US
             </span>
-            <h2 className="mt-6 text-3xl font-extrabold text-slate-900 md:text-4xl">
-              The Blue Academy Advantage
+            <h2 className="mt-3 text-4xl font-extrabold leading-tight md:text-5xl text-slate-900">
+              Built for Mastery. <br /> Designed for Careers.
             </h2>
-            <p className="max-w-2xl mx-auto mt-4 text-lg text-slate-600">
-              We provide an ecosystem for success, designed to bridge the gap
-              between learning and hired.
-            </p>
           </div>
 
-          {/* Bento Grid Layout */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* 100% Online - Large Card */}
-            <div className="relative p-10 overflow-hidden transition-all duration-300 bg-blue-600 border group md:col-span-2 rounded-3xl hover:shadow-2xl">
-              <div className="absolute top-0 right-0 w-64 h-64 translate-x-32 -translate-y-32 bg-blue-500 rounded-full opacity-20"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 -translate-x-24 translate-y-24 bg-blue-700 rounded-full opacity-20"></div>
-
-              <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-white/10 backdrop-blur rounded-2xl">
-                  <MonitorPlay
-                    size={32}
-                    className="text-white"
-                    strokeWidth={1.5}
-                  />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  100% Online Learning
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+            {/* CARD 1: Live Delivery (Large White) */}
+            <div className="flex flex-col justify-between p-8 transition-all duration-300 bg-white border shadow-sm md:col-span-2 rounded-3xl border-slate-100 hover:shadow-xl group">
+              <div className="flex items-center justify-center w-12 h-12 mb-6 text-blue-600 transition-transform bg-blue-50 rounded-xl group-hover:scale-110">
+                <MonitorPlay size={24} strokeWidth={2} />
+              </div>
+              <div>
+                <h3 className="mb-3 text-2xl font-bold text-slate-900">
+                  Live, hands-on delivery
                 </h3>
-                <p className="text-lg leading-relaxed text-blue-100">
-                  Learn from anywhere in the world at your own pace. Access
-                  course materials 24/7, pause and resume anytime.
+                <p className="text-lg leading-relaxed text-slate-500">
+                  Instructor-led sessions with guided labs, assignments,
+                  assessments, and real projects. No passive watching—you learn
+                  by doing.
                 </p>
               </div>
+            </div>
 
-              {/* Decorative Element */}
-              <div className="absolute grid grid-cols-3 gap-2 opacity-10 bottom-8 right-8">
-                {[...Array(6)].map((_, i) => (
-                  <div key={i} className="w-3 h-3 bg-white rounded-sm"></div>
-                ))}
+            {/* CARD 2: Certification (Blue Highlight) */}
+            <div className="flex flex-col justify-between p-8 text-white transition-transform duration-300 bg-blue-600 shadow-lg md:col-span-1 rounded-3xl shadow-blue-900/20 hover:-translate-y-1">
+              <div className="flex items-center justify-center w-12 h-12 mb-6 text-white bg-white/10 rounded-xl backdrop-blur-sm">
+                <Award size={24} strokeWidth={2} />
+              </div>
+              <div>
+                <h3 className="mb-3 text-xl font-bold">
+                  Certification Guaranteed
+                </h3>
+                <p className="text-sm leading-relaxed text-blue-100">
+                  Structured preparation and readiness checks to get you
+                  certified (Microsoft / Google Cloud / AWS / Databricks).
+                </p>
               </div>
             </div>
 
-            {/* Secure Platform */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 bg-white border-2 group border-slate-100 rounded-3xl hover:shadow-xl hover:border-blue-100">
-              <div className="absolute top-0 right-0 w-32 h-32 translate-x-16 -translate-y-16 rounded-full bg-gradient-to-br from-blue-50 to-transparent opacity-60"></div>
+            {/* CARD 3: AI Driven (Dark Highlight) */}
+            <div className="md:col-span-1 p-8 bg-[#0F172A] rounded-3xl shadow-lg text-white flex flex-col justify-between hover:-translate-y-1 transition-transform duration-300 relative overflow-hidden">
+              {/* Decorative background element */}
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 rounded-full bg-blue-500/10 blur-2xl"></div>
 
-              <div className="inline-flex items-center justify-center text-blue-600 transition-colors w-14 h-14 bg-blue-50 rounded-2xl group-hover:bg-blue-600 group-hover:text-white">
-                <Shield size={28} strokeWidth={1.5} />
+              <div className="relative z-10 flex items-center justify-center w-12 h-12 mb-6 text-blue-400 bg-white/10 rounded-xl">
+                <Shield size={24} strokeWidth={2} />
               </div>
-
-              <h3 className="mt-6 mb-2 text-xl font-bold text-slate-900">
-                Secure Platform
-              </h3>
-              <p className="leading-relaxed text-slate-600">
-                Your data, progress, and certifications are always safe.
-              </p>
-
-              {/* Progress Bar Decoration */}
-              <div className="flex gap-1 mt-6">
-                <div className="h-1 bg-blue-200 rounded-full w-14"></div>
-                <div className="w-20 h-1 bg-blue-400 rounded-full"></div>
-                <div className="w-10 h-1 bg-blue-600 rounded-full"></div>
-              </div>
-            </div>
-
-            {/* Expert Mentors */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 bg-gradient-to-br from-slate-50 to-white group border-slate-100 rounded-3xl hover:shadow-xl hover:border-blue-100">
-              <div className="inline-flex items-center justify-center mb-6 text-indigo-600 transition-all w-14 h-14 bg-indigo-50 rounded-2xl group-hover:scale-110">
-                <Users size={28} strokeWidth={1.5} />
-              </div>
-
-              <h3 className="mb-2 text-xl font-bold text-slate-900">
-                Expert Mentors
-              </h3>
-              <p className="leading-relaxed text-slate-600">
-                Learn directly from engineers at Google, Amazon, and Microsoft.
-              </p>
-
-              {/* Avatar Stack */}
-              <div className="flex mt-6 -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <img
-                    key={i}
-                    src={`https://randomuser.me/api/portraits/men/${
-                      i * 15
-                    }.jpg`}
-                    className="w-10 h-10 border-2 border-white rounded-full"
-                    alt="Mentor"
-                  />
-                ))}
-                <div className="flex items-center justify-center w-10 h-10 text-xs font-bold text-white bg-indigo-600 border-2 border-white rounded-full">
-                  +12
-                </div>
-              </div>
-            </div>
-
-            {/* Flexible Timing */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-orange-100 bg-orange-50 group rounded-3xl hover:shadow-xl">
-              <div className="absolute w-32 h-32 bg-orange-100 rounded-full opacity-50 -bottom-6 -right-6"></div>
-
               <div className="relative z-10">
-                <div className="inline-flex items-center justify-center mb-6 text-orange-600 transition-transform bg-white w-14 h-14 rounded-2xl group-hover:rotate-12">
-                  <Clock size={28} strokeWidth={1.5} />
-                </div>
+                <h3 className="mb-3 text-xl font-bold">AI-Driven Experience</h3>
+                <p className="text-sm leading-relaxed text-slate-400">
+                  Learn Agentic AI while experiencing it: AI copilots, smart
+                  practice, and AI-powered feedback loops.
+                </p>
+              </div>
+            </div>
 
+            {/* CARD 4: Role Ready (White) */}
+            <div className="flex flex-col justify-between p-8 transition-all duration-300 bg-white border shadow-sm md:col-span-2 rounded-3xl border-slate-100 hover:shadow-xl group">
+              <div className="flex items-center justify-center w-12 h-12 mb-6 text-purple-600 transition-transform bg-purple-50 rounded-xl group-hover:scale-110">
+                <Briefcase size={24} strokeWidth={2} />
+              </div>
+              <div>
+                <h3 className="mb-3 text-2xl font-bold text-slate-900">
+                  Role-ready outcomes
+                </h3>
+                <p className="text-lg leading-relaxed text-slate-500">
+                  Skills built for job roles in Agentic AI and GenAI—tools,
+                  workflows, and implementation depth that employers actually
+                  expect.
+                </p>
+              </div>
+            </div>
+
+            {/* CARD 5: Experience (White) */}
+            <div className="flex flex-col justify-between p-8 transition-all duration-300 bg-white border shadow-sm md:col-span-1 rounded-3xl border-slate-100 hover:shadow-xl group">
+              <div className="flex items-center justify-center w-12 h-12 mb-6 text-teal-600 transition-transform bg-teal-50 rounded-xl group-hover:scale-110">
+                <Users size={24} strokeWidth={2} />
+              </div>
+              <div>
+                <h3 className="mb-2 text-lg font-bold text-slate-900">
+                  10+ Years Experience
+                </h3>
+                <p className="text-sm leading-relaxed text-slate-500">
+                  Proven facilitation expertise with industry-grade content
+                  design and practical execution.
+                </p>
+              </div>
+            </div>
+
+            {/* CARD 6: Support (White) */}
+            <div className="flex flex-col items-center gap-8 p-8 transition-all duration-300 bg-white border shadow-sm md:col-span-2 rounded-3xl border-slate-100 hover:shadow-xl md:flex-row group">
+              <div className="flex items-center justify-center w-16 h-16 text-orange-600 transition-transform bg-orange-50 rounded-2xl shrink-0 group-hover:scale-110">
+                <Clock size={32} strokeWidth={2} />
+              </div>
+              <div>
                 <h3 className="mb-2 text-xl font-bold text-slate-900">
-                  Flexible Timing
+                  Always-on Technical Assistance
                 </h3>
-                <p className="leading-relaxed text-slate-600">
-                  No strict schedules. Balance learning with your job or
-                  college.
+                <p className="leading-relaxed text-slate-500">
+                  Dedicated support for environment setup, tools, debugging, and
+                  lab execution so your learning stays uninterrupted.
                 </p>
-              </div>
-            </div>
-
-            {/* Placement Support & Certificates - Combined Large Card */}
-            <div className="relative col-span-1 p-10 overflow-hidden transition-all duration-300 bg-gradient-to-br from-slate-900 to-slate-800 group md:col-span-2 rounded-3xl hover:shadow-2xl">
-              {/* Grid Pattern Background */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0 bg-[linear-gradient(white_1px,transparent_1px),linear-gradient(to_right,white_1px,transparent_1px)] [background-size:20px_20px]"></div>
-              </div>
-
-              <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2">
-                {/* Placement Support */}
-                <div>
-                  <div className="inline-flex items-center justify-center mb-6 text-white w-14 h-14 bg-white/10 backdrop-blur rounded-2xl">
-                    <Briefcase size={28} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="mb-3 text-xl font-bold text-white">
-                    Placement Support
-                  </h3>
-                  <p className="text-slate-300">
-                    Exclusive job board access and resume building workshops.
-                  </p>
-                </div>
-
-                {/* Verified Certificates */}
-                <div>
-                  <div className="inline-flex items-center justify-center mb-6 text-white w-14 h-14 bg-white/10 backdrop-blur rounded-2xl">
-                    <CheckCircle size={28} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="mb-3 text-xl font-bold text-white">
-                    Verified Certificates
-                  </h3>
-                  <p className="text-slate-300">
-                    Add significant value to your LinkedIn profile and resume.
-                  </p>
-                </div>
-              </div>
-
-              {/* Stats Row */}
-              <div className="grid grid-cols-3 gap-4 pt-8 mt-8 border-t border-white/10">
-                <div>
-                  <p className="text-3xl font-bold text-white">98%</p>
-                  <p className="text-sm text-slate-400">Placement Rate</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-white">500+</p>
-                  <p className="text-sm text-slate-400">Partner Companies</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-white">15k+</p>
-                  <p className="text-sm text-slate-400">Alumni Network</p>
-                </div>
               </div>
             </div>
           </div>
