@@ -1,10 +1,11 @@
 import React from "react";
+import { PersonStanding } from "lucide-react";
 
 const Instructors = ({ list }) => {
   return (
     <div>
-      <h2 className="mb-6 text-2xl font-bold text-slate-900">
-        Meet Your Mentors
+      <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+        <PersonStanding size={24} className="text-blue-600" /> Meet Your Mentors
       </h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {list.map((inst, idx) => (

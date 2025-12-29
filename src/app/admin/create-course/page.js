@@ -902,14 +902,6 @@ export default function CreateCourse() {
     outcomes: "", // Course Outcomes (Rich Text)
   });
 
-  // --- 2. PROGRAM DETAILS STATE (NEW) ---
-  const [programDetails, setProgramDetails] = useState({
-    type: "",
-    mode: "",
-    smeCriteria: [""],
-    certCriteria: [""],
-  });
-
   // --- 3. DYNAMIC LISTS STATE ---
   // Updated Curriculum Structure for Nesting
   const [curriculum, setCurriculum] = useState([
@@ -986,9 +978,9 @@ export default function CreateCourse() {
     if (!updated[modIdx].sections) updated[modIdx].sections = [];
     updated[modIdx].sections.push({
       title: "",
-      concepts: [""],
-      labs: [""],
-      tools: [""],
+      concepts: "",
+      labs: "",
+      tools: "",
     });
     setCurriculum(updated);
   };
@@ -1053,13 +1045,6 @@ export default function CreateCourse() {
           .split(",")
           .map((s) => s.trim())
           .filter((s) => s),
-
-        // New Program Details
-        programDetails: {
-          ...programDetails,
-          smeCriteria: programDetails.smeCriteria.filter((s) => s.trim()),
-          certCriteria: programDetails.certCriteria.filter((s) => s.trim()),
-        },
 
         curriculum: curriculum.map((mod) => ({
           ...mod,
@@ -1262,99 +1247,6 @@ export default function CreateCourse() {
                   Beginner to Advanced
                 </option>
               </select>
-            </div>
-          </div>
-        </div>
-
-        {/* --- 3. PROGRAM DETAILS (NEW) --- */}
-        <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
-          <h2 className="section-title">3. Program Details</h2>
-          <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2">
-            <div className="form-group">
-              <label>Program Type</label>
-              <input
-                name="type"
-                value={programDetails.type}
-                onChange={handleProgramChange}
-                className="input-field"
-                placeholder="e.g. Technical Hands-On Training"
-              />
-            </div>
-            <div className="form-group">
-              <label>Delivery Mode</label>
-              <input
-                name="mode"
-                value={programDetails.mode}
-                onChange={handleProgramChange}
-                className="input-field"
-                placeholder="e.g. Instructor-led, lab-heavy"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {/* SME Criteria List */}
-            <div>
-              <label className="block mb-2 text-xs font-bold uppercase text-slate-500">
-                Trainer Eligibility
-              </label>
-              {programDetails.smeCriteria.map((item, i) => (
-                <div key={i} className="flex gap-2 mb-2">
-                  <input
-                    className="py-2 input-field"
-                    value={item}
-                    onChange={(e) =>
-                      handleProgListChange("smeCriteria", i, e.target.value)
-                    }
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeProgListItem("smeCriteria", i)}
-                    className="text-red-400 hover:text-red-600"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={() => addProgListItem("smeCriteria")}
-                className="flex items-center gap-1 text-sm font-bold text-blue-600"
-              >
-                + Add Criteria
-              </button>
-            </div>
-
-            {/* Certification Criteria List */}
-            <div>
-              <label className="block mb-2 text-xs font-bold uppercase text-slate-500">
-                Certification Eligibility
-              </label>
-              {programDetails.certCriteria.map((item, i) => (
-                <div key={i} className="flex gap-2 mb-2">
-                  <input
-                    className="py-2 input-field"
-                    value={item}
-                    onChange={(e) =>
-                      handleProgListChange("certCriteria", i, e.target.value)
-                    }
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeProgListItem("certCriteria", i)}
-                    className="text-red-400 hover:text-red-600"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={() => addProgListItem("certCriteria")}
-                className="flex items-center gap-1 text-sm font-bold text-blue-600"
-              >
-                + Add Criteria
-              </button>
             </div>
           </div>
         </div>
