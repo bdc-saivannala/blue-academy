@@ -643,23 +643,23 @@
 //                 className="
 //         /* Base Typography */
 //         prose prose-sm max-w-none text-slate-600 leading-relaxed
-        
+
 //         /* HEADINGS (e.g., 'Core Concepts', 'Lab Topics') */
 //         /* Design: Dark, Bold, with a small Blue accent line on the left */
 //         [&>h3]:text-base [&>h3]:font-extrabold [&>h3]:text-slate-900 [&>h3]:mt-6 [&>h3]:mb-3
-//         [&>h4]:text-sm [&>h4]:font-bold [&>h4]:text-slate-800 [&>h4]:mt-6 [&>h4]:mb-2 
+//         [&>h4]:text-sm [&>h4]:font-bold [&>h4]:text-slate-800 [&>h4]:mt-6 [&>h4]:mb-2
 //         [&>h4]:border-l-4 [&>h4]:border-blue-500 [&>h4]:pl-3
-        
+
 //         /* PARAGRAPHS */
 //         [&>p]:mb-4 [&>p]:text-slate-600
-        
+
 //         /* LISTS (Bullets) */
 //         [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>ul]:mb-4
 //         [&_li::marker]:text-blue-500  /* Blue bullets */
-        
+
 //         /* BOLD TEXT (Highlights) */
 //         [&_strong]:text-slate-900 [&_strong]:font-bold
-        
+
 //         /* TOOLS SECTION (Optional styling if 'Tools' is a separate p or div) */
 //         [&_em]:not-italic [&_em]:text-blue-600 [&_em]:font-medium
 //       "
@@ -1128,9 +1128,9 @@ import {
   GraduationCap,
   LibraryBig,
   Send,
-  PersonStanding,
   StarHalf,
   MessageCircleQuestionMark,
+  SquareArrowOutUpRight,
 } from "lucide-react";
 
 // Components
@@ -1173,7 +1173,9 @@ const RichCurriculum = ({ modules }) => {
             </div>
             <span className="flex items-center gap-3">
               <span className="hidden text-xs font-semibold tracking-wider uppercase text-slate-400 sm:block">
-                {module.sections ? `${module.sections.length} Sections` : "View Content"}
+                {module.sections
+                  ? `${module.sections.length} Sections`
+                  : "View Content"}
               </span>
               <ChevronDown
                 size={20}
@@ -1184,7 +1186,6 @@ const RichCurriculum = ({ modules }) => {
 
           {/* MODULE CONTENT AREA */}
           <div className="p-6 pt-4 border-t border-slate-100 bg-slate-50/40">
-            
             {/* Module Description */}
             {module.details && (
               <div
@@ -1197,34 +1198,37 @@ const RichCurriculum = ({ modules }) => {
             {module.sections && module.sections.length > 0 && (
               <div className="flex flex-col gap-3">
                 {module.sections.map((section, j) => (
-                  <details 
-                    key={j} 
+                  <details
+                    key={j}
                     className="overflow-hidden transition-all bg-white border rounded-lg group/section border-slate-200 hover:border-blue-300 open:border-blue-400 open:shadow-sm"
                   >
                     {/* SECTION HEADER */}
                     <summary className="flex items-center justify-between p-4 list-none transition-colors bg-white cursor-pointer hover:bg-slate-50">
-                       <div className="flex items-center gap-3">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 group-open/section:bg-blue-600"></div>
-                          <h4 className="text-sm font-bold text-slate-800 group-hover/section:text-blue-700">
-                            {section.title}
-                          </h4>
-                       </div>
-                       <ChevronDown 
-                         size={16} 
-                         className="transition-transform duration-300 text-slate-400 group-open/section:rotate-180 group-open/section:text-blue-600" 
-                       />
+                      <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 group-open/section:bg-blue-600"></div>
+                        <h4 className="text-sm font-bold text-slate-800 group-hover/section:text-blue-700">
+                          {section.title}
+                        </h4>
+                      </div>
+                      <ChevronDown
+                        size={16}
+                        className="transition-transform duration-300 text-slate-400 group-open/section:rotate-180 group-open/section:text-blue-600"
+                      />
                     </summary>
-                    
+
                     {/* SECTION CONTENT (Concepts, Labs, Tools) */}
                     <div className="p-5 space-y-6 border-t border-slate-100 bg-slate-50/50">
-                      
                       {/* Core Concepts */}
                       {section.concepts && (
                         <div>
-                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">Core Concepts</p>
-                          <div 
+                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+                            Core Concepts
+                          </p>
+                          <div
                             className="text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500"
-                            dangerouslySetInnerHTML={{ __html: section.concepts }} 
+                            dangerouslySetInnerHTML={{
+                              __html: section.concepts,
+                            }}
                           />
                         </div>
                       )}
@@ -1232,25 +1236,32 @@ const RichCurriculum = ({ modules }) => {
                       {/* Hands-on Labs */}
                       {section.labs && (
                         <div>
-                           <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">Hands-on Labs</p>
-                           <div 
-                             className="p-4 text-sm border rounded-lg bg-white border-slate-200 text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-green-500"
-                             dangerouslySetInnerHTML={{ __html: section.labs }} 
-                           />
+                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+                            Hands-on Labs
+                          </p>
+                          <div
+                            className="p-4 text-sm border rounded-lg bg-white border-slate-200 text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-green-500"
+                            dangerouslySetInnerHTML={{ __html: section.labs }}
+                          />
                         </div>
                       )}
 
                       {/* Tools Used */}
                       {section.tools && section.tools.length > 0 && (
                         <div>
-                           <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">Tools & Stack</p>
-                           <div className="flex flex-wrap items-center gap-2">
-                              {section.tools.map((tool, k) => (
-                                <span key={k} className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded border border-blue-100 flex items-center gap-1">
-                                  <Terminal size={12} /> {tool}
-                                </span>
-                              ))}
-                           </div>
+                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+                            Tools & Stack
+                          </p>
+                          <div className="flex flex-wrap items-center gap-2">
+                            {section.tools.map((tool, k) => (
+                              <span
+                                key={k}
+                                className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded border border-blue-100 flex items-center gap-1"
+                              >
+                                <Terminal size={12} /> {tool}
+                              </span>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -1265,14 +1276,15 @@ const RichCurriculum = ({ modules }) => {
   );
 };
 
-
 export default async function CourseDetailPage({ params }) {
   const { slug } = await params;
   const course = await getCourse(slug);
 
   if (!course)
     return (
-      <div className="py-20 text-xl font-bold text-center">Course Not Found</div>
+      <div className="py-20 text-xl font-bold text-center">
+        Course Not Found
+      </div>
     );
 
   // Fallback Data
@@ -1290,12 +1302,14 @@ export default async function CourseDetailPage({ params }) {
   const defaultCapstones = [
     {
       title: "RAG Application with Interactive UI",
-      details: "<p>Build a real-time RAG-powered question-answering system using <strong>FAISS/Chroma</strong>.</p>",
+      details:
+        "<p>Build a real-time RAG-powered question-answering system using <strong>FAISS/Chroma</strong>.</p>",
       icon: Layers,
     },
     {
       title: "Autonomous AI Agent System",
-      details: "<p>Design an intelligent agent using <strong>LangChain</strong> to solve complex tasks.</p>",
+      details:
+        "<p>Design an intelligent agent using <strong>LangChain</strong> to solve complex tasks.</p>",
       icon: Cpu,
     },
   ];
@@ -1317,7 +1331,12 @@ export default async function CourseDetailPage({ params }) {
       {/* =========================================
           1. HERO SECTION
       ========================================= */}
-      <div className="bg-[#0f172a] text-white pt-32 pb-16 relative overflow-hidden">
+      <div
+        className="bg-[#0f172a] text-white pt-32 pb-16 relative overflow-hidden bg-center bg-cover"
+        style={{
+          backgroundImage: `url(${course.bannerImage})`, // dynamic backend image
+        }}
+      >
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-600/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
         <div className="relative z-10 px-6 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
@@ -1327,7 +1346,7 @@ export default async function CourseDetailPage({ params }) {
                 <Link href="/courses" className="hover:text-white">
                   Courses
                 </Link>
-                <span className="text-slate-600">/</span>
+                <span>/</span>
                 <span className="text-blue-100">
                   {course.category || "Generative AI"}
                 </span>
@@ -1413,7 +1432,7 @@ export default async function CourseDetailPage({ params }) {
             </div>
 
             {/* RIGHT: IMAGE CARD */}
-            <div className="hidden lg:block lg:col-span-1">
+            {/* <div className="hidden lg:block lg:col-span-1">
               <div className="overflow-hidden border shadow-2xl rounded-xl border-white/10 shadow-black/50 md:mt-10">
                 <div className="relative flex items-center justify-center h-64 cursor-pointer bg-slate-900 group">
                   <img
@@ -1427,7 +1446,7 @@ export default async function CourseDetailPage({ params }) {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -1498,7 +1517,8 @@ export default async function CourseDetailPage({ params }) {
             {/* CAPSTONE PROJECTS (Redesigned with Expand/Collapse) */}
             <section id="projects">
               <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <Layers size={24} className="text-blue-600" /> Capstone Projects
+                <LibraryBig size={24} className="text-blue-600" /> Capstone
+                Projects
               </h2>
 
               <div className="bg-[#1e293b] rounded-2xl overflow-hidden p-2">
@@ -1506,7 +1526,6 @@ export default async function CourseDetailPage({ params }) {
                   <details
                     key={idx}
                     className="transition-all duration-300 border-b group border-white/10 last:border-0 open:bg-white/5 rounded-xl"
-                    open={idx === 0} // Optional: Keep first one open by default
                   >
                     <summary className="flex items-center justify-between p-6 list-none cursor-pointer select-none">
                       <div className="flex items-center gap-5">
@@ -1575,17 +1594,25 @@ export default async function CourseDetailPage({ params }) {
             {/* CAREER OPPORTUNITIES */}
             {course.jobRoles && course.jobRoles.length > 0 && (
               <section>
-                <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+                <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
                   <Send size={24} className="text-blue-600" /> Career
                   Opportunities
                 </h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   {course.jobRoles.map((job, i) => (
-                    <div
+                    <a
                       key={job._id || i}
-                      className="p-4 border rounded-lg border-slate-200 bg-slate-50/50"
+                      href={`https://www.naukri.com/${job.role
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}-jobs`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block p-4 transition-all border rounded-lg border-slate-200 bg-slate-50/50 hover:bg-white hover:shadow-md hover:border-blue-300 group"
                     >
-                      <h3 className="font-bold text-slate-900">{job.role}</h3>
+                      <h3 className="flex items-center gap-2 font-bold transition-colors text-slate-900 group-hover:text-blue-600">
+                        {job.role} <SquareArrowOutUpRight size={12} />
+                      </h3>
                       <p className="text-sm text-slate-600">
                         Average Salary: {job.salary}
                       </p>
@@ -1603,7 +1630,7 @@ export default async function CourseDetailPage({ params }) {
                           {job.demand}
                         </span>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </section>
@@ -1672,7 +1699,7 @@ export default async function CourseDetailPage({ params }) {
 
           {/* RIGHT SIDEBAR (UPDATED - NO PRICE) */}
           <div className="relative lg:col-span-1">
-            <div className="sticky space-y-6 top-32">
+            <div className="sticky space-y-6 top-20">
               <div className="p-6 bg-white border shadow-xl rounded-2xl">
                 {/* REMOVED PRICE DIV HERE AS REQUESTED */}
 
@@ -1697,7 +1724,8 @@ export default async function CourseDetailPage({ params }) {
                     {capstoneList.length} Projects
                   </div>
                   <div className="flex items-center gap-2">
-                    <Award size={16} className="text-blue-500" /> Certificate
+                    <Award size={16} className="text-blue-500" /> Provide
+                    Certificate
                   </div>
                 </div>
               </div>

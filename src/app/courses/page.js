@@ -203,66 +203,6 @@ export default function CoursesPage() {
                 ))}
               </div>
             </div>
-
-            {/* Rating Filter */}
-            <div>
-              <h4 className="mb-4 text-xs font-bold tracking-wider uppercase text-slate-400">
-                Rating
-              </h4>
-              <div className="space-y-3">
-                {[4.5, 4.0, 3.5].map((rating) => (
-                  <label
-                    key={rating}
-                    className="flex items-center gap-3 cursor-pointer group"
-                  >
-                    <div
-                      className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${
-                        selectedRatings.includes(rating)
-                          ? "bg-blue-600 border-blue-600"
-                          : "bg-white border-slate-300 group-hover:border-blue-400"
-                      }`}
-                    >
-                      {selectedRatings.includes(rating) && (
-                        <svg
-                          className="w-3.5 h-3.5 text-white"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="3"
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <input
-                      type="checkbox"
-                      className="hidden"
-                      checked={selectedRatings.includes(rating)}
-                      onChange={() => toggleRating(rating)}
-                    />
-                    <div className="flex items-center gap-1">
-                      <span
-                        className={`text-sm ${
-                          selectedRatings.includes(rating)
-                            ? "font-bold text-slate-900"
-                            : "text-slate-600"
-                        }`}
-                      >
-                        {rating} & up
-                      </span>
-                      <Star
-                        size={12}
-                        className="text-yellow-400 fill-yellow-400"
-                      />
-                    </div>
-                  </label>
-                ))}
-              </div>
-            </div>
           </aside>
 
           {/* --- RIGHT SIDE (COURSE GRID) --- */}
