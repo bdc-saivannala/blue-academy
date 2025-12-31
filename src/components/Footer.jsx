@@ -203,7 +203,7 @@ const Footer = () => {
 
         {/* BOTTOM SECTION */}
         <div className="flex flex-col items-center justify-between gap-4 pt-8 text-sm border-t border-slate-800 md:flex-row text-slate-500">
-          <p>© 2024 Blue Academy, Inc. All rights reserved.</p>
+          <p>© 2025 Blue Academy, Inc. All rights reserved.</p>
           <div className="flex gap-6">
             <button className="transition-colors hover:text-white">
               English (IN)

@@ -58,10 +58,21 @@ export default function CoursesPage() {
 
     // Search Filter
     if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      
       result = result.filter(
-        (course) =>
-          course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          course.category?.toLowerCase().includes(searchQuery.toLowerCase())
+        (course) => {
+          const title = (course.title || "").toLowerCase();
+          const category = (course.category || "").toLowerCase();
+          const instructor = (course.instructor?.name || "").toLowerCase();
+          const skills = (course.skills || []).join(" ").toLowerCase();
+          return (
+            title.includes(query) ||
+            category.includes(query) ||
+            instructor.includes(query) ||
+            skills.includes(query)
+          );
+        }
       );
     }
 
