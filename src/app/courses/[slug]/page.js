@@ -1,39 +1,35 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Star,
-  Globe,
   Clock,
-  BarChart,
-  CheckCircle,
-  PlayCircle,
   MonitorPlay,
-  FileText,
   Award,
-  Smartphone,
   ChevronDown,
-  AlertCircle,
   HelpCircle,
-  Code,
   Terminal,
   Layers,
   Cpu,
   Target,
   Wrench,
-  Headphones, // Added for Support
-  FlaskConical, // Added for Labs
+  Headphones,
+  FlaskConical,
   BookOpenText,
   GraduationCap,
   LibraryBig,
-  Send,
   StarHalf,
   MessageCircleQuestionMark,
-  SquareArrowOutUpRight,
+  Search,
+  PhoneCall,
+  Video,
+  FileCheck,
+  FilePen,
+  Map,
 } from "lucide-react";
 
 // Components
 import ApplicationForm from "@/components/ApplicationForm";
 import Instructors from "@/components/Instructors";
+import CareerSection from "@/components/CareerSection";
 
 // --- 1. FETCH DATA ---
 async function getCourse(slug) {
@@ -492,53 +488,154 @@ export default async function CourseDetailPage({ params }) {
               </div>
             </section>
 
-            {/* CAREER OPPORTUNITIES */}
-            {course.jobRoles && course.jobRoles.length > 0 && (
-              <section>
-                <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                  <Send size={24} className="text-blue-600" /> Career
-                  Opportunities
-                </h2>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  {course.jobRoles.map((job, i) => (
-                    <a
-                      key={job._id || i}
-                      href={`https://www.naukri.com/${job.role
-                        .trim()
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")}-jobs`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block p-4 transition-all border rounded-lg border-slate-200 bg-slate-50/50 hover:bg-white hover:shadow-md hover:border-blue-300 group"
-                    >
-                      <h3 className="flex items-center gap-2 font-bold transition-colors text-slate-900 group-hover:text-blue-600">
-                        {job.role} <SquareArrowOutUpRight size={12} />
-                      </h3>
-                      <p className="text-sm text-slate-600">
-                        Average Salary: {job.salary}
-                      </p>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs font-bold uppercase text-slate-500">
-                          Demand:
-                        </span>
-                        <span
-                          className={`text-xs px-2 py-0.5 rounded ${
-                            job.demand === "High" || job.demand === "Very High"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}
-                        >
-                          {job.demand}
-                        </span>
-                      </div>
-                    </a>
-                  ))}
+            {/* CAREER OPPORTUNITIES (Client Component) */}
+            <CareerSection jobRoles={course.jobRoles} />
+
+            {/* --- SECTION: Enrollment Process --- */}
+            <section>
+              <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
+                <FilePen size={24} className="text-blue-600" />
+                How do I enroll in this course?
+              </h2>
+              <div className="py-6 bg-white border shadow-sm rounded-2xl border-slate-200">
+                <div className="mb-12 text-center">
+                  <p className="text-sm font-medium text-slate-500">
+                    It's a simple 4-step process
+                  </p>
                 </div>
-              </section>
-            )}
+
+                <div className="relative max-w-5xl px-4 mx-auto">
+                  {/* Dashed Connecting Line (Desktop) */}
+                  {/* Positioned top-10 to align with center of h-20 (5rem) icons */}
+                  <div className="hidden md:block absolute top-6 left-[12%] right-[12%] border-t-2 border-dashed border-slate-300 z-0"></div>
+
+                  <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-4">
+                    {[
+                      {
+                        title: "Explore",
+
+                        desc: "Explore the course and certification",
+
+                        icon: Search,
+
+                        color: "text-blue-600",
+
+                        bg: "bg-blue-50 border-blue-100",
+                      },
+
+                      {
+                        title: "Consult",
+
+                        desc: "Talk to our agents for guidance",
+
+                        icon: PhoneCall,
+
+                        color: "text-purple-600",
+
+                        bg: "bg-purple-50 border-purple-100",
+                      },
+
+                      {
+                        title: "Experience",
+
+                        desc: "Join our live demo session",
+
+                        icon: Video,
+
+                        color: "text-orange-600",
+
+                        bg: "bg-orange-50 border-orange-100",
+                      },
+
+                      {
+                        title: "Enroll",
+
+                        desc: "Complete your enrollment",
+
+                        icon: FileCheck,
+
+                        color: "text-green-600",
+
+                        bg: "bg-green-50 border-green-100",
+                      },
+                    ].map((step, i) => (
+                      <div
+                        key={i}
+                        className="flex flex-col items-center text-center group"
+                      >
+                        <div
+                          className={`w-12 h-12 rounded-full border-2 flex items-center justify-center mb-4 shadow-sm transition-transform group-hover:scale-110 ${step.bg} ${step.color} border-white`}
+                        >
+                          <step.icon size={20} />
+                        </div>
+
+                        <h4 className="mb-1 text-lg font-bold text-slate-800">
+                          {i + 1}. {step.title}
+                        </h4>
+
+                        <p className="text-sm leading-relaxed text-slate-500">
+                          {step.desc}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
 
             {/* INSTRUCTORS & REVIEWS */}
             <Instructors list={course.instructors || []} />
+
+            {/* --- SECTION: LEARNING ROADMAP --- */}
+            <section>
+              <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
+                <Map size={24} className="text-blue-400" /> Learning Roadmap
+              </h2>
+              <div className="p-8 border rounded-2xl bg-slate-900 border-slate-800">
+                <div className="relative -mt-8 space-y-8">
+                  {/* Vertical Line */}
+                  <div className="absolute top-4 bottom-4 left-[19px] w-0.5 bg-slate-700"></div>
+
+                  {/* Modules from DB */}
+                  {(course.curriculum || []).map((module, i) => (
+                    <div
+                      key={i}
+                      className="relative flex items-start gap-6 group"
+                    >
+                      {/* Dot */}
+                      <div className="relative z-10 flex items-center justify-center flex-shrink-0 w-10 h-10 transition-colors border-4 rounded-full border-slate-900 bg-slate-800 group-hover:bg-blue-600 group-hover:text-white text-slate-400">
+                        <span className="text-xs font-bold">{i + 1}</span>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 pt-1.5">
+                        <h4 className="text-lg font-bold transition-colors text-slate-200 group-hover:text-blue-300">
+                          {module.title}
+                        </h4>
+                        <p className="mt-1 text-sm text-slate-500 line-clamp-2">
+                          {module.sections
+                            ? `${module.sections.length} Sections`
+                            : "Module details"}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Final Goal */}
+                  <div className="relative flex items-center gap-6">
+                    <div className="relative z-10 flex items-center justify-center flex-shrink-0 w-10 h-10 bg-green-500 border-4 border-slate-900 rounded-full shadow-[0_0_15px_rgba(34,197,94,0.4)] text-white">
+                      <Award size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-bold text-white">
+                        Certified GenAI Engineer
+                      </h4>
+                      <p className="text-sm text-green-400">Goal Achieved</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
 
             <section>
               <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
@@ -620,7 +717,7 @@ export default async function CourseDetailPage({ params }) {
             <div className="sticky space-y-6 top-24">
               <div className="relative overflow-hidden bg-white border shadow-2xl rounded-2xl border-slate-100 shadow-blue-900/5">
                 {/* Top Gradient Accent */}
-                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-slate-900"></div>
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-blue-900"></div>
 
                 <div className="p-6 pt-8">
                   {/* Urgency Status Badge */}

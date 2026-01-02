@@ -82,7 +82,7 @@ const ApplicationForm = ({ courseTitle, courseSlug }) => {
   return (
     <div className="p-6 bg-white border border-blue-100 shadow-xl rounded-xl">
       <h3 className="flex items-center mb-4 text-xl font-bold text-slate-900">
-        <ChevronsRight className="text-blue-600"/>
+        <ChevronsRight className="text-blue-600" />
         Request For Demo
       </h3>
 
@@ -156,7 +156,7 @@ const ApplicationForm = ({ courseTitle, courseSlug }) => {
             status.loading ? "bg-slate-400" : "bg-blue-600 hover:bg-blue-700"
           }`}
         >
-          {status.loading ? "Sending..." : "Submit Application"}
+          {status.loading ? "Sending..." : "Submit Request"}
         </button>
 
         {/* ERROR MESSAGE DISPLAY */}
