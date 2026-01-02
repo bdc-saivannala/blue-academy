@@ -25,6 +25,11 @@ import {
   FilePen,
   Map,
   ChevronsRight,
+  Landmark,
+  CreditCard,
+  ArrowUpRight,
+  Briefcase,
+  Smartphone,
 } from "lucide-react";
 
 // Components
@@ -634,6 +639,123 @@ export default async function CourseDetailPage({ params }) {
                       </h4>
                       <p className="text-sm text-green-400">Goal Achieved</p>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* --- SECTION: PRICING (Split Card Design) --- */}
+            <section className="py-12">
+              <div className="flex flex-col max-w-5xl mx-auto overflow-hidden bg-white border shadow-2xl rounded-3xl border-slate-100 md:flex-row">
+                {/* LEFT: FEE BREAKDOWN */}
+                <div className="flex flex-col justify-center w-full p-8 text-center border-r md:w-1/2 md:p-12 border-slate-100">
+                  <h3 className="mb-8 text-xl font-extrabold text-slate-900">
+                    What is My Investment?*
+                  </h3>
+
+                  <div className="space-y-8">
+                    <div>
+                      <p className="text-xs font-bold tracking-widest uppercase text-slate-400">
+                        Application Fee
+                      </p>
+                      <p className="text-lg font-bold text-slate-700">₹2,000</p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-bold tracking-widest uppercase text-slate-400">
+                        Program Fee
+                      </p>
+                      <p className="text-xl font-bold line-through text-slate-400 decoration-red-400 decoration-2">
+                        {course.fee
+                          ? `₹${(
+                              parseInt(course.fee.replace(/,/g, "")) * 1.3
+                            ).toLocaleString()}`
+                          : "₹80,000"}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="mb-2 text-sm font-bold tracking-wide text-blue-700 uppercase">
+                        Program Fee with Scholarship
+                      </p>
+                      <p className="text-4xl font-black text-slate-900">
+                        {course.fee
+                          ? `₹${parseInt(course.fee).toLocaleString()}`
+                          : "₹50,000"}
+                      </p>
+                      <p className="mt-2 text-[10px] font-medium text-slate-400">
+                        *18% GST extra as applicable
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-8 border-t border-slate-100">
+                    <div className="flex items-center justify-center gap-2 text-slate-600">
+                      <Briefcase size={16} className="text-slate-400" />
+                      <span className="text-xs font-bold underline cursor-pointer hover:text-blue-600">
+                        Special Fee for Corporate Nominations**
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* RIGHT: PAYMENT MODES & EMI (Purple) */}
+                <div className="relative flex flex-col justify-between w-full p-8 text-white bg-blue-600 md:w-1/2 md:p-12">
+                  {/* Payment Icons Box */}
+                  <div className="mb-10">
+                    <p className="mb-3 text-sm font-medium text-center text-purple-200">
+                      Modes of payment available
+                    </p>
+                    <div className="flex items-center justify-between p-4 text-gray-600 bg-white shadow-lg rounded-xl">
+                      <div className="flex flex-col items-center gap-1 px-2">
+                        <Landmark size={24} className="text-slate-800" />
+                        <span className="text-[9px] font-bold uppercase">
+                          Net Banking
+                        </span>
+                      </div>
+                      <div className="w-px h-8 bg-slate-200"></div>
+                      <div className="flex flex-col items-center gap-1 px-2">
+                        <CreditCard size={24} className="text-slate-800" />
+                        <span className="text-[9px] font-bold uppercase">
+                          Cards
+                        </span>
+                      </div>
+                      <div className="w-px h-8 bg-slate-200"></div>
+                      <div className="flex flex-col items-center gap-1 px-2">
+                        <Smartphone size={24} className="text-slate-800" />
+                        <span className="text-[9px] font-bold uppercase">
+                          UPI
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Financing Info */}
+                  <div className="space-y-1 text-center">
+                    <h4 className="text-lg font-bold">
+                      Easy Financing Options
+                    </h4>
+                    <p className="text-sm text-blue-200">EMI as low as</p>
+                    <p className="mt-1 text-4xl font-extrabold text-white">
+                      ₹5,084
+                      <span className="text-lg font-medium text-blue-300">
+                        /mo
+                      </span>
+                    </p>
+                    <p className="pt-2 text-xs font-bold text-white underline cursor-pointer hover:text-blue-200">
+                      View EMI Options
+                    </p>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="flex justify-center mt-10">
+                    <button className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all border rounded-full bg-white/20 border-white/30 hover:bg-white hover:text-blue-800 backdrop-blur-sm group">
+                      Talk to Us{" "}
+                      <ArrowUpRight
+                        size={16}
+                        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
