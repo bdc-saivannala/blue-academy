@@ -24,6 +24,7 @@ import {
   FileCheck,
   FilePen,
   Map,
+  ChevronsRight,
 } from "lucide-react";
 
 // Components
@@ -498,9 +499,10 @@ export default async function CourseDetailPage({ params }) {
                 How do I enroll in this course?
               </h2>
               <div className="py-6 bg-white border shadow-sm rounded-2xl border-slate-200">
-                <div className="mb-12 text-center">
-                  <p className="text-sm font-medium text-slate-500">
-                    It's a simple 4-step process
+                <div className="mb-12 ml-6 text-left">
+                  <p className="flex items-center gap-2 font-medium uppercase text-md text-slate-500">
+                    <ChevronsRight className="text-blue-600" />
+                    It's a simple process
                   </p>
                 </div>
 
