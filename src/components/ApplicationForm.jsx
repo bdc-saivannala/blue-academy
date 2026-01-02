@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { ChevronsRight } from "lucide-react";
 
 const ApplicationForm = ({ courseTitle, courseSlug }) => {
   const [formData, setFormData] = useState({
@@ -80,8 +81,9 @@ const ApplicationForm = ({ courseTitle, courseSlug }) => {
 
   return (
     <div className="p-6 bg-white border border-blue-100 shadow-xl rounded-xl">
-      <h3 className="mb-4 text-xl font-bold text-slate-900">
-        {courseTitle ? `Apply for ${courseTitle}` : "Start Your Application"}
+      <h3 className="flex items-center mb-4 text-xl font-bold text-slate-900">
+        <ChevronsRight className="text-blue-600"/>
+        Request For Demo
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -126,7 +128,7 @@ const ApplicationForm = ({ courseTitle, courseSlug }) => {
               onChange={handleChange}
               required
               className="w-full p-3 text-sm border rounded-lg border-slate-300"
-              placeholder="+91..."
+              placeholder="+91 98765 43210"
             />
           </div>
         </div>

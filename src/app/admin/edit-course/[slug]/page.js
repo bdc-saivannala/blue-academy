@@ -171,8 +171,6 @@ export default function EditCourse({ params }) {
           data.programDetails || {
             type: "",
             mode: "",
-            smeCriteria: [""],
-            certCriteria: [""],
           }
         );
 

@@ -245,9 +245,7 @@ export default async function CourseDetailPage({ params }) {
                   Courses
                 </Link>
                 <span>/</span>
-                <span className="text-blue-100">
-                  {course.category || "Generative AI"}
-                </span>
+                <span className="text-blue-100">{course.category}</span>
               </div>
 
               <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
@@ -255,7 +253,7 @@ export default async function CourseDetailPage({ params }) {
               </h1>
 
               {/* --- REPLACED HERO CONTENT: OPTION 1 (Tech Spec) --- */}
-              <div className="pt-8 mt-8 border-t border-white/10">
+              <div className="max-w-3xl pt-8 mt-8 border-t border-white/10">
                 {/* Top Row: Certification & Skills */}
                 <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2">
                   <div>
@@ -295,34 +293,39 @@ export default async function CourseDetailPage({ params }) {
                 </div>
 
                 {/* Bottom Row: Key Points Grid */}
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="space-y-1">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase">
-                      Mode
-                    </p>
-                    <div className="flex items-center gap-2 text-sm text-slate-300">
-                      <MonitorPlay size={16} className="text-blue-500" />
-                      <span className="truncate">
-                        {programDetails.mode || "Instructor-led"}
-                      </span>
+                <div className="pt-4 mt-4 border-t border-white/10">
+                  <h2 className="mb-4 text-lg font-bold text-white uppercase">
+                    Program Includes:
+                  </h2>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-slate-500 font-bold uppercase">
+                        Mode
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-slate-300">
+                        <MonitorPlay size={16} className="text-blue-500" />
+                        <span className="truncate">
+                          {programDetails.mode || "Instructor-led"}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase">
-                      Labs
-                    </p>
-                    <div className="flex items-center gap-2 text-sm text-slate-300">
-                      <FlaskConical size={16} className="text-green-500" />
-                      <span>Hands-on</span>
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-slate-500 font-bold uppercase">
+                        Labs
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-slate-300">
+                        <FlaskConical size={16} className="text-green-500" />
+                        <span>Hands-on</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase">
-                      Support
-                    </p>
-                    <div className="flex items-center gap-2 text-sm text-slate-300">
-                      <Headphones size={16} className="text-yellow-500" />
-                      <span>24x7 Active</span>
+                    <div className="space-y-1">
+                      <p className="text-[10px] text-slate-500 font-bold uppercase">
+                        Support
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-slate-300">
+                        <Headphones size={16} className="text-yellow-500" />
+                        <span>24x7 Active</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -415,8 +418,8 @@ export default async function CourseDetailPage({ params }) {
             {/* CAPSTONE PROJECTS (Redesigned with Expand/Collapse) */}
             <section id="projects">
               <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <LibraryBig size={24} className="text-blue-600" /> Capstone
-                Projects
+                <LibraryBig size={24} className="text-blue-600" /> Description
+                of Capstone projects
               </h2>
 
               <div className="bg-[#1e293b] rounded-2xl overflow-hidden p-2">
@@ -566,64 +569,74 @@ export default async function CourseDetailPage({ params }) {
               </div>
             </section>
 
-            {/* FAQs */}
-            <section className="">
-              <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+            {/* FAQs (Redesigned Interactive Accordion) */}
+            <section>
+              <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
                 <MessageCircleQuestionMark
                   size={24}
                   className="text-blue-600"
-                />{" "}
+                />
                 Frequently Asked Questions
               </h2>
-              <div className="p-6 space-y-4 border rounded-lg bg-slate-50 border-slate-200">
+
+              <div className="overflow-hidden border rounded-2xl border-slate-200 bg-slate-50">
                 {(course.faqs || []).map((faq, i) => (
-                  <div
+                  <details
                     key={i}
-                    className="pb-4 border-b border-slate-200 last:border-0"
+                    className="transition-colors border-b group border-slate-200 last:border-0 hover:bg-white open:bg-white"
                   >
-                    <h4 className="flex items-center gap-2 mb-2 text-sm font-bold text-slate-800">
-                      <HelpCircle size={16} className="text-slate-500" />{" "}
-                      {faq.q}
-                    </h4>
-                    <div
-                      className="pl-6 text-sm prose-sm prose text-slate-600 max-w-none"
-                      dangerouslySetInnerHTML={{ __html: faq.a }}
-                    />
-                  </div>
+                    <summary className="flex items-center justify-between p-5 list-none cursor-pointer select-none">
+                      <div className="flex items-center gap-3">
+                        <HelpCircle
+                          size={20}
+                          className="transition-colors text-slate-400 shrink-0 group-open:text-blue-600"
+                        />
+                        <span className="text-sm font-bold transition-colors text-slate-800 md:text-base group-hover:text-blue-700">
+                          {faq.q}
+                        </span>
+                      </div>
+                      <span className="p-1 transition-colors rounded-full group-hover:bg-slate-100">
+                        <ChevronDown
+                          size={20}
+                          className="transition-transform duration-300 text-slate-400 group-open:rotate-180"
+                        />
+                      </span>
+                    </summary>
+
+                    <div className="px-5 pb-6 pl-[3.5rem]">
+                      <div
+                        className="text-sm leading-relaxed prose-sm prose text-slate-600 max-w-none"
+                        dangerouslySetInnerHTML={{ __html: faq.a }}
+                      />
+                    </div>
+                  </details>
                 ))}
               </div>
             </section>
           </div>
 
-          {/* RIGHT SIDEBAR (UPDATED - NO PRICE) */}
+          {/* RIGHT SIDEBAR (Redesigned) */}
           <div className="relative lg:col-span-1">
-            <div className="sticky space-y-6 top-20">
-              <div className="p-6 bg-white border shadow-xl rounded-2xl">
-                {/* REMOVED PRICE DIV HERE AS REQUESTED */}
+            <div className="sticky space-y-6 top-24">
+              <div className="relative overflow-hidden bg-white border shadow-2xl rounded-2xl border-slate-100 shadow-blue-900/5">
+                {/* Top Gradient Accent */}
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-slate-900"></div>
 
-                <p className="text-[#B32D0F] flex items-center gap-1 text-sm font-bold mb-6">
-                  <Clock size={16} /> Enrolling for{" "}
-                  {course.nextBatch || "Upcoming"} Batch
-                </p>
-
-                <ApplicationForm
-                  courseTitle={course.title}
-                  courseSlug={course.slug}
-                />
-
-                <div className="pt-6 mt-6 space-y-2 text-sm border-t border-slate-100 text-slate-600">
-                  <p className="font-bold text-slate-900">Program includes:</p>
-                  <div className="flex items-center gap-2">
-                    <MonitorPlay size={16} className="text-blue-500" />{" "}
-                    {course.duration} Live sessions
+                <div className="p-6 pt-8">
+                  {/* Urgency Status Badge */}
+                  <div className="flex items-center justify-center gap-2 p-3 mb-8 text-sm font-bold text-orange-800 border border-orange-100 rounded-lg bg-orange-50">
+                    <Clock size={18} className="animate-pulse" />
+                    <span>
+                      Enrolling for {course.nextBatch || "Upcoming"} Batch
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Code size={16} className="text-blue-500" />{" "}
-                    {capstoneList.length} Projects
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Award size={16} className="text-blue-500" /> Provide
-                    Certificate
+
+                  {/* Application Form */}
+                  <div className="relative z-10">
+                    <ApplicationForm
+                      courseTitle={course.title}
+                      courseSlug={course.slug}
+                    />
                   </div>
                 </div>
               </div>
