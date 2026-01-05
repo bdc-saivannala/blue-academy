@@ -102,7 +102,7 @@ const ApplicationForm = ({ courseTitle, courseSlug }) => {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 gap-3">
           <div>
             <label className="block mb-1 text-xs font-bold uppercase text-slate-700">
               Email

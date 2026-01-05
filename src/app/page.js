@@ -20,6 +20,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import ScheduleCallButton from "@/components/ScheduleCallButton";
+
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -130,12 +132,20 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen font-sans bg-white text-slate-900">
+      {/* --- ADD FLOATING BUTTON HERE --- */}
+      <ScheduleCallButton />
+
       {/* =========================================
           1. HERO SECTION
       ========================================= */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-slate-50">
+      <section
+        className="relative pt-32 pb-20 overflow-hidden bg-center bg-cover bg-slate-50"
+        style={{
+          backgroundImage: `url(/Hero-section.jpg)`,
+        }}
+      >
         {/* Background Blob */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100 rounded-full blur-[100px] opacity-60 -translate-y-1/2 translate-x-1/3"></div>
+        {/* <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100 rounded-full blur-[100px] opacity-60 -translate-y-1/2 translate-x-1/3"></div> */}
 
         <div className="grid items-center grid-cols-1 gap-12 px-6 mx-auto max-w-7xl lg:grid-cols-2">
           {/* Left Text */}
@@ -186,14 +196,14 @@ export default function HomePage() {
           </div>
 
           {/* Right Image */}
-          <div className="relative z-10">
+          {/* <div className="relative z-10">
             <div className="relative overflow-hidden shadow-2xl rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
                 alt="Students learning"
                 className="object-cover w-full h-full"
               />
-              {/* Floating Badge */}
+
               <div className="absolute flex items-center gap-3 p-4 bg-white rounded-lg shadow-xl bottom-8 left-8 animate-bounce-slow">
                 <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded-full">
                   <CheckCircle size={20} />
@@ -206,7 +216,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 

@@ -34,7 +34,7 @@ const Instructors = ({ list }) => {
       </h2>
 
       {/* 2. COMBINED GRID */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {list.map((inst, idx) => {
           // 3. Automatically assign a role based on the index (0, 1, 2...)
           const role = roleDefinitions[idx % roleDefinitions.length];

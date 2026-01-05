@@ -30,6 +30,13 @@ import {
   ArrowUpRight,
   Briefcase,
   Smartphone,
+  Currency,
+  FileText,
+  Check,
+  Calculator,
+  Wallet,
+  ArrowRight,
+  Phone,
 } from "lucide-react";
 
 // Components
@@ -241,7 +248,7 @@ export default async function CourseDetailPage({ params }) {
         <div className="relative z-10 px-6 mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             {/* LEFT: Content */}
-            <div className="space-y-8 lg:col-span-2">
+            <div className="space-y-6 lg:col-span-2">
               <div className="flex items-center gap-2 text-xs font-bold tracking-widest text-blue-300 uppercase">
                 <Link href="/courses" className="hover:text-white">
                   Courses
@@ -358,7 +365,9 @@ export default async function CourseDetailPage({ params }) {
           2. CONTENT LAYOUT
       ========================================= */}
       <div className="relative px-6 pt-8 pb-20 mx-auto max-w-7xl">
+        {/* --- GRID SECTION (Description -> Career) --- */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          {/* LEFT COLUMN */}
           <div className="space-y-12 lg:col-span-2">
             <section>
               <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
@@ -392,13 +401,13 @@ export default async function CourseDetailPage({ params }) {
                 className="
       p-8 bg-white border rounded-2xl border-slate-200 
       grid grid-cols-1 md:grid-cols-[30%_1fr] gap-y-8 gap-x-12 items-start
-      
+       
       /* Style Headings (Left Column) */
       [&>h4]:text-sm [&>h4]:font-extrabold [&>h4]:text-slate-900 [&>h4]:leading-snug [&>h4]:mt-0.5
-      
+       
       /* Style Paragraphs (Right Column) */
       [&>p]:text-sm [&>p]:text-slate-600 [&>p]:leading-relaxed [&>p]:m-0
-      
+       
       /* Handle Lists if present (span full width or fit in col) */
       [&>ul]:col-span-2 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:text-sm [&>ul]:text-slate-600
     "
@@ -497,102 +506,6 @@ export default async function CourseDetailPage({ params }) {
             {/* CAREER OPPORTUNITIES (Client Component) */}
             <CareerSection jobRoles={course.jobRoles} />
 
-            {/* --- SECTION: Enrollment Process --- */}
-            <section>
-              <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <FilePen size={24} className="text-blue-600" />
-                How do I enroll in this course?
-              </h2>
-              <div className="py-6 bg-white border shadow-sm rounded-2xl border-slate-200">
-                <div className="mb-12 ml-6 text-left">
-                  <p className="flex items-center gap-2 font-medium uppercase text-md text-slate-500">
-                    <ChevronsRight className="text-blue-600" />
-                    It's a simple process
-                  </p>
-                </div>
-
-                <div className="relative max-w-5xl px-4 mx-auto">
-                  {/* Dashed Connecting Line (Desktop) */}
-                  {/* Positioned top-10 to align with center of h-20 (5rem) icons */}
-                  <div className="hidden md:block absolute top-6 left-[12%] right-[12%] border-t-2 border-dashed border-slate-300 z-0"></div>
-
-                  <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-4">
-                    {[
-                      {
-                        title: "Explore",
-
-                        desc: "Explore the course and certification",
-
-                        icon: Search,
-
-                        color: "text-blue-600",
-
-                        bg: "bg-blue-50 border-blue-100",
-                      },
-
-                      {
-                        title: "Consult",
-
-                        desc: "Talk to our agents for guidance",
-
-                        icon: PhoneCall,
-
-                        color: "text-purple-600",
-
-                        bg: "bg-purple-50 border-purple-100",
-                      },
-
-                      {
-                        title: "Experience",
-
-                        desc: "Join our live demo session",
-
-                        icon: Video,
-
-                        color: "text-orange-600",
-
-                        bg: "bg-orange-50 border-orange-100",
-                      },
-
-                      {
-                        title: "Enroll",
-
-                        desc: "Complete your enrollment",
-
-                        icon: FileCheck,
-
-                        color: "text-green-600",
-
-                        bg: "bg-green-50 border-green-100",
-                      },
-                    ].map((step, i) => (
-                      <div
-                        key={i}
-                        className="flex flex-col items-center text-center group"
-                      >
-                        <div
-                          className={`w-12 h-12 rounded-full border-2 flex items-center justify-center mb-4 shadow-sm transition-transform group-hover:scale-110 ${step.bg} ${step.color} border-white`}
-                        >
-                          <step.icon size={20} />
-                        </div>
-
-                        <h4 className="mb-1 text-lg font-bold text-slate-800">
-                          {i + 1}. {step.title}
-                        </h4>
-
-                        <p className="text-sm leading-relaxed text-slate-500">
-                          {step.desc}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* INSTRUCTORS & REVIEWS */}
-            <Instructors list={course.instructors || []} />
-
             {/* --- SECTION: LEARNING ROADMAP --- */}
             <section>
               <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
@@ -643,200 +556,9 @@ export default async function CourseDetailPage({ params }) {
                 </div>
               </div>
             </section>
-
-            {/* --- SECTION: PRICING (Split Card Design) --- */}
-            <section className="py-12">
-              <div className="flex flex-col max-w-5xl mx-auto overflow-hidden bg-white border shadow-2xl rounded-3xl border-slate-100 md:flex-row">
-                {/* LEFT: FEE BREAKDOWN */}
-                <div className="flex flex-col justify-center w-full p-8 text-center border-r md:w-1/2 md:p-12 border-slate-100">
-                  <h3 className="mb-8 text-xl font-extrabold text-slate-900">
-                    What is My Investment?*
-                  </h3>
-
-                  <div className="space-y-8">
-                    <div>
-                      <p className="text-xs font-bold tracking-widest uppercase text-slate-400">
-                        Application Fee
-                      </p>
-                      <p className="text-lg font-bold text-slate-700">₹2,000</p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs font-bold tracking-widest uppercase text-slate-400">
-                        Program Fee
-                      </p>
-                      <p className="text-xl font-bold line-through text-slate-400 decoration-red-400 decoration-2">
-                        {course.fee
-                          ? `₹${(
-                              parseInt(course.fee.replace(/,/g, "")) * 1.3
-                            ).toLocaleString()}`
-                          : "₹80,000"}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="mb-2 text-sm font-bold tracking-wide text-blue-700 uppercase">
-                        Program Fee with Scholarship
-                      </p>
-                      <p className="text-4xl font-black text-slate-900">
-                        {course.fee
-                          ? `₹${parseInt(course.fee).toLocaleString()}`
-                          : "₹50,000"}
-                      </p>
-                      <p className="mt-2 text-[10px] font-medium text-slate-400">
-                        *18% GST extra as applicable
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 mt-8 border-t border-slate-100">
-                    <div className="flex items-center justify-center gap-2 text-slate-600">
-                      <Briefcase size={16} className="text-slate-400" />
-                      <span className="text-xs font-bold underline cursor-pointer hover:text-blue-600">
-                        Special Fee for Corporate Nominations**
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* RIGHT: PAYMENT MODES & EMI (Purple) */}
-                <div className="relative flex flex-col justify-between w-full p-8 text-white bg-blue-600 md:w-1/2 md:p-12">
-                  {/* Payment Icons Box */}
-                  <div className="mb-10">
-                    <p className="mb-3 text-sm font-medium text-center text-purple-200">
-                      Modes of payment available
-                    </p>
-                    <div className="flex items-center justify-between p-4 text-gray-600 bg-white shadow-lg rounded-xl">
-                      <div className="flex flex-col items-center gap-1 px-2">
-                        <Landmark size={24} className="text-slate-800" />
-                        <span className="text-[9px] font-bold uppercase">
-                          Net Banking
-                        </span>
-                      </div>
-                      <div className="w-px h-8 bg-slate-200"></div>
-                      <div className="flex flex-col items-center gap-1 px-2">
-                        <CreditCard size={24} className="text-slate-800" />
-                        <span className="text-[9px] font-bold uppercase">
-                          Cards
-                        </span>
-                      </div>
-                      <div className="w-px h-8 bg-slate-200"></div>
-                      <div className="flex flex-col items-center gap-1 px-2">
-                        <Smartphone size={24} className="text-slate-800" />
-                        <span className="text-[9px] font-bold uppercase">
-                          UPI
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Financing Info */}
-                  <div className="space-y-1 text-center">
-                    <h4 className="text-lg font-bold">
-                      Easy Financing Options
-                    </h4>
-                    <p className="text-sm text-blue-200">EMI as low as</p>
-                    <p className="mt-1 text-4xl font-extrabold text-white">
-                      ₹5,084
-                      <span className="text-lg font-medium text-blue-300">
-                        /mo
-                      </span>
-                    </p>
-                    <p className="pt-2 text-xs font-bold text-white underline cursor-pointer hover:text-blue-200">
-                      View EMI Options
-                    </p>
-                  </div>
-
-                  {/* CTA Button */}
-                  <div className="flex justify-center mt-10">
-                    <button className="flex items-center gap-2 px-8 py-3 text-sm font-bold text-white transition-all border rounded-full bg-white/20 border-white/30 hover:bg-white hover:text-blue-800 backdrop-blur-sm group">
-                      Talk to Us{" "}
-                      <ArrowUpRight
-                        size={16}
-                        className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
-                <StarHalf size={24} className="text-blue-600" /> Success Stories
-              </h2>
-              <div className="grid gap-4 md:grid-cols-2">
-                {(course.reviews || []).map((review, i) => (
-                  <div
-                    key={i}
-                    className="p-6 bg-white border shadow-sm rounded-xl"
-                  >
-                    <p className="mb-4 text-sm italic text-slate-600">
-                      "{review.text.replace(/<[^>]+>/g, "")}"
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 font-bold rounded-full bg-slate-200 text-slate-500">
-                        {review.name[0]}
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold">{review.name}</p>
-                        <p className="text-[10px] text-slate-500">
-                          {review.role}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* FAQs (Redesigned Interactive Accordion) */}
-            <section>
-              <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <MessageCircleQuestionMark
-                  size={24}
-                  className="text-blue-600"
-                />
-                Frequently Asked Questions
-              </h2>
-
-              <div className="overflow-hidden border rounded-2xl border-slate-200 bg-slate-50">
-                {(course.faqs || []).map((faq, i) => (
-                  <details
-                    key={i}
-                    className="transition-colors border-b group border-slate-200 last:border-0 hover:bg-white open:bg-white"
-                  >
-                    <summary className="flex items-center justify-between p-5 list-none cursor-pointer select-none">
-                      <div className="flex items-center gap-3">
-                        <HelpCircle
-                          size={20}
-                          className="transition-colors text-slate-400 shrink-0 group-open:text-blue-600"
-                        />
-                        <span className="text-sm font-bold transition-colors text-slate-800 md:text-base group-hover:text-blue-700">
-                          {faq.q}
-                        </span>
-                      </div>
-                      <span className="p-1 transition-colors rounded-full group-hover:bg-slate-100">
-                        <ChevronDown
-                          size={20}
-                          className="transition-transform duration-300 text-slate-400 group-open:rotate-180"
-                        />
-                      </span>
-                    </summary>
-
-                    <div className="px-5 pb-6 pl-[3.5rem]">
-                      <div
-                        className="text-sm leading-relaxed prose-sm prose text-slate-600 max-w-none"
-                        dangerouslySetInnerHTML={{ __html: faq.a }}
-                      />
-                    </div>
-                  </details>
-                ))}
-              </div>
-            </section>
           </div>
 
-          {/* RIGHT SIDEBAR (Redesigned) */}
+          {/* RIGHT SIDEBAR (Only visible for this top section) */}
           <div className="relative lg:col-span-1">
             <div className="sticky space-y-6 top-24">
               <div className="relative overflow-hidden bg-white border shadow-2xl rounded-2xl border-slate-100 shadow-blue-900/5">
@@ -863,6 +585,474 @@ export default async function CourseDetailPage({ params }) {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* --- FULL WIDTH SECTION (Enrollment -> FAQs) --- */}
+        <div className="mt-12 space-y-12">
+          {/* --- SECTION: Enrollment Process --- */}
+          <section>
+            <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
+              <FilePen size={24} className="text-blue-600" />
+              How do I enroll in this course?
+            </h2>
+            <div className="py-6 bg-white border shadow-sm rounded-2xl border-slate-200">
+              <div className="mb-12 ml-6 text-left">
+                <p className="flex items-center gap-2 font-medium uppercase text-md text-slate-500">
+                  <ChevronsRight className="text-blue-600" />
+                  It's a simple process
+                </p>
+              </div>
+
+              <div className="relative px-4 mx-auto max-w-7xl">
+                {/* Dashed Connecting Line (Desktop) */}
+                {/* Positioned top-10 to align with center of h-20 (5rem) icons */}
+                <div className="hidden md:block absolute top-6 left-[12%] right-[12%] border-t-2 border-dashed border-slate-300 z-0"></div>
+
+                <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-4">
+                  {[
+                    {
+                      title: "Explore",
+
+                      desc: "Explore the course and certification",
+
+                      icon: Search,
+
+                      color: "text-blue-600",
+
+                      bg: "bg-blue-50 border-blue-100",
+                    },
+
+                    {
+                      title: "Consult",
+
+                      desc: "Talk to our agents for guidance",
+
+                      icon: PhoneCall,
+
+                      color: "text-purple-600",
+
+                      bg: "bg-purple-50 border-purple-100",
+                    },
+
+                    {
+                      title: "Experience",
+
+                      desc: "Join our live demo session",
+
+                      icon: Video,
+
+                      color: "text-orange-600",
+
+                      bg: "bg-orange-50 border-orange-100",
+                    },
+
+                    {
+                      title: "Enroll",
+
+                      desc: "Complete your enrollment",
+
+                      icon: FileCheck,
+
+                      color: "text-green-600",
+
+                      bg: "bg-green-50 border-green-100",
+                    },
+                  ].map((step, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col items-center text-center group"
+                    >
+                      <div
+                        className={`w-12 h-12 rounded-full border-2 flex items-center justify-center mb-4 shadow-sm transition-transform group-hover:scale-110 ${step.bg} ${step.color} border-white`}
+                      >
+                        <step.icon size={20} />
+                      </div>
+
+                      <h4 className="mb-1 text-lg font-bold text-slate-800">
+                        {i + 1}. {step.title}
+                      </h4>
+
+                      <p className="text-sm leading-relaxed text-slate-500">
+                        {step.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* INSTRUCTORS & REVIEWS */}
+          <Instructors list={course.instructors || []} />
+
+          {/* --- SECTION: PRICING (Modern Card Design) --- */}
+          <section>
+            <div className="mb-12">
+              <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-90">
+                <Currency size={24} className="text-blue-600" />
+                Transparent Pricing
+              </h2>
+              <p className="mx-auto text-sm text-slate-600">
+                Invest in your future with our flexible payment options and
+                exclusive scholarship benefits
+              </p>
+            </div>
+            <div className="bg-gradient-to-b from-slate-50 to-white">
+              <div className="container px-4 mx-auto max-w-7xl">
+                <div className="grid max-w-6xl gap-8 mx-auto md:grid-cols-3">
+                  {/* Application Fee Card */}
+                  <div className="relative p-8 transition-shadow bg-white border-2 border-slate-200 rounded-2xl hover:shadow-lg">
+                    <div className="mb-4">
+                      <FileText className="w-12 h-12 mb-4 text-blue-500" />
+                      <h3 className="mb-2 text-xl font-semibold text-slate-900">
+                        Application Fee
+                      </h3>
+                      <p className="text-sm text-slate-600">
+                        One-time non-refundable fee
+                      </p>
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-3xl font-bold text-slate-900">
+                        ₹2,000
+                      </span>
+                    </div>
+                    <div className="mt-6">
+                      <button className="w-full px-4 py-3 font-medium transition-colors rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">
+                        Start Application
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Program Fee Card - Featured */}
+                  <div className="relative p-8 text-white transform shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl md:scale-105">
+                    <div className="absolute top-0 right-0 px-4 py-1 text-sm font-bold text-blue-900 bg-yellow-400 rounded-bl-xl rounded-tr-xl">
+                      SCHOLARSHIP APPLIED
+                    </div>
+                    <div className="mb-4">
+                      <GraduationCap className="w-12 h-12 mb-4 text-white/90" />
+                      <h3 className="mb-2 text-xl font-semibold">
+                        Program Fee
+                      </h3>
+                      <p className="text-sm text-blue-100">
+                        Complete program access
+                      </p>
+                    </div>
+
+                    {/* Price with discount */}
+                    <div className="mb-6">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-lg text-blue-200 line-through">
+                          ₹
+                          {(
+                            parseInt(course.fee?.replace(/,/g, "") || "50000") *
+                            1.3
+                          ).toLocaleString()}
+                        </span>
+                        <span className="px-2 py-1 text-xs font-bold text-white bg-red-500 rounded-full">
+                          SAVE 30%
+                        </span>
+                      </div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold">
+                          ₹{parseInt(course.fee || "50000").toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="mt-2 text-xs text-blue-200">
+                        *18% GST extra as applicable
+                      </p>
+                    </div>
+
+                    <div className="mb-6 space-y-3">
+                      <div className="flex items-center gap-2 text-sm text-blue-100">
+                        <Check className="w-4 h-4" />
+                        <span>Industry-recognized certification</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-blue-100">
+                        <Check className="w-4 h-4" />
+                        <span>Lifetime access to materials</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-blue-100">
+                        <Check className="w-4 h-4" />
+                        <span>Placement assistance included</span>
+                      </div>
+                    </div>
+
+                    <button className="w-full px-4 py-3 font-bold text-blue-700 transition-colors bg-white rounded-lg shadow-lg hover:bg-blue-50">
+                      Enroll Now
+                    </button>
+
+                    <div className="mt-4 text-center">
+                      <a
+                        href="#"
+                        className="text-xs text-blue-200 underline hover:text-white"
+                      >
+                        Corporate nominations available*
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* EMI Options Card */}
+                  <div className="relative p-8 transition-shadow bg-white border-2 border-slate-200 rounded-2xl hover:shadow-lg">
+                    <div className="mb-4">
+                      <Calculator className="w-12 h-12 mb-4 text-green-500" />
+                      <h3 className="mb-2 text-xl font-semibold text-slate-900">
+                        Easy EMI
+                      </h3>
+                      <p className="text-sm text-slate-600">
+                        Flexible payment plans
+                      </p>
+                    </div>
+
+                    {/* Calculate EMI based on actual course fee */}
+                    {(() => {
+                      const baseFee = parseInt(
+                        course.fee?.replace(/,/g, "") || "50000"
+                      );
+                      const gstAmount = baseFee * 0.18;
+                      const totalAmount = baseFee + gstAmount;
+                      const interestRate = 0.15; // 15% annual interest rate (typical for education loans)
+
+                      // EMI calculation function
+                      const calculateEMI = (principal, months) => {
+                        const monthlyRate = interestRate / 12;
+                        const emi =
+                          (principal *
+                            monthlyRate *
+                            Math.pow(1 + monthlyRate, months)) /
+                          (Math.pow(1 + monthlyRate, months) - 1);
+                        return Math.round(emi);
+                      };
+
+                      const emi3 = calculateEMI(totalAmount, 3);
+                      const emi6 = calculateEMI(totalAmount, 6);
+                      const emi9 = calculateEMI(totalAmount, 9);
+                      const emi12 = calculateEMI(totalAmount, 12);
+
+                      return (
+                        <>
+                          <div className="mb-6">
+                            <p className="mb-2 text-sm text-slate-600">
+                              Starting from
+                            </p>
+                            <div className="flex items-baseline gap-1">
+                              <span className="text-3xl font-bold text-slate-900">
+                                ₹{emi12.toLocaleString()}
+                              </span>
+                              <span className="text-slate-600">/month</span>
+                            </div>
+                            <p className="mt-1 text-xs text-slate-500">
+                              Based on ₹{totalAmount.toLocaleString()} (incl.
+                              GST)
+                            </p>
+                          </div>
+
+                          <div className="mb-6 space-y-3">
+                            <div className="p-3 rounded-lg bg-slate-50">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-sm font-medium text-slate-700">
+                                  3 months
+                                </span>
+                                <span className="text-sm font-bold text-slate-900">
+                                  ₹{emi3.toLocaleString()}/mo
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                Total: ₹{(emi3 * 3).toLocaleString()}
+                              </p>
+                            </div>
+
+                            <div className="p-3 rounded-lg bg-slate-50">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-sm font-medium text-slate-700">
+                                  6 months
+                                </span>
+                                <span className="text-sm font-bold text-slate-900">
+                                  ₹{emi6.toLocaleString()}/mo
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                Total: ₹{(emi6 * 6).toLocaleString()}
+                              </p>
+                            </div>
+
+                            <div className="p-3 rounded-lg bg-slate-50">
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-sm font-medium text-slate-700">
+                                  9 months
+                                </span>
+                                <span className="text-sm font-bold text-slate-900">
+                                  ₹{emi9.toLocaleString()}/mo
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-500">
+                                Total: ₹{(emi9 * 9).toLocaleString()}
+                              </p>
+                            </div>
+
+                            <div className="p-3 border border-green-200 rounded-lg bg-green-50">
+                              <div className="flex items-center justify-between mb-1">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm font-medium text-slate-700">
+                                    12 months
+                                  </span>
+                                  <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">
+                                    Popular
+                                  </span>
+                                </div>
+                                <span className="text-sm font-bold text-green-700">
+                                  ₹{emi12.toLocaleString()}/mo
+                                </span>
+                              </div>
+                              <p className="text-xs text-green-600">
+                                Total: ₹{(emi12 * 12).toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="p-3 mb-4 text-xs rounded-lg text-slate-500 bg-blue-50">
+                            <p className="mb-1 font-medium text-slate-700">
+                              EMI Breakdown:
+                            </p>
+                            <p>• Course Fee: ₹{baseFee.toLocaleString()}</p>
+                            <p>• GST (18%): ₹{gstAmount.toLocaleString()}</p>
+                            <p>
+                              • Interest Rate: {(interestRate * 100).toFixed(0)}
+                              % p.a.
+                            </p>
+                          </div>
+                        </>
+                      );
+                    })()}
+
+                    <button className="flex items-center justify-center w-full gap-2 px-4 py-3 font-medium text-green-700 transition-colors bg-green-100 rounded-lg hover:bg-green-200">
+                      <Calculator className="w-4 h-4" />
+                      Get Personalized EMI Plan
+                    </button>
+                  </div>
+                </div>
+
+                {/* Payment Methods */}
+                <div className="mt-12 text-center">
+                  <p className="mb-4 text-sm text-slate-600">
+                    Accepted Payment Methods
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-8">
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Landmark className="w-5 h-5" />
+                      <span className="text-sm font-medium">Net Banking</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <CreditCard className="w-5 h-5" />
+                      <span className="text-sm font-medium">
+                        Credit/Debit Cards
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Smartphone className="w-5 h-5" />
+                      <span className="text-sm font-medium">UPI Payments</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <Wallet className="w-5 h-5" />
+                      <span className="text-sm font-medium">
+                        Digital Wallets
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="p-8 mt-16 text-center bg-slate-100 rounded-2xl">
+                  <h3 className="mb-4 text-xl font-bold text-slate-900">
+                    Ready to Start Your Journey?
+                  </h3>
+                  <p className="max-w-2xl mx-auto mb-6 text-slate-600">
+                    Join thousands of successful graduates who transformed their
+                    careers with our program
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-4">
+                    <button className="flex items-center gap-2 px-8 py-3 font-bold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700">
+                      Apply Now <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <button className="flex items-center gap-2 px-8 py-3 font-bold transition-colors bg-white border-2 rounded-lg text-slate-700 hover:bg-slate-50 border-slate-200">
+                      <Phone className="w-4 h-4" /> Talk to Counselor
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+          {/* Success Stories */}          
+          {/* <section>
+            <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
+              <StarHalf size={24} className="text-blue-600" /> Success Stories
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              {(course.reviews || []).map((review, i) => (
+                <div
+                  key={i}
+                  className="p-6 bg-white border shadow-sm rounded-xl"
+                >
+                  <p className="mb-4 text-sm italic text-slate-600">
+                    "{review.text.replace(/<[^>]+>/g, "")}"
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center w-8 h-8 font-bold rounded-full bg-slate-200 text-slate-500">
+                      {review.name[0]}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold">{review.name}</p>
+                      <p className="text-[10px] text-slate-500">
+                        {review.role}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section> */}
+
+          {/* FAQs (Redesigned Interactive Accordion) */}
+          <section>
+            <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
+              <MessageCircleQuestionMark size={24} className="text-blue-600" />
+              Frequently Asked Questions
+            </h2>
+
+            <div className="overflow-hidden border rounded-2xl border-slate-200 bg-slate-50">
+              {(course.faqs || []).map((faq, i) => (
+                <details
+                  key={i}
+                  className="transition-colors border-b group border-slate-200 last:border-0 hover:bg-white open:bg-white"
+                >
+                  <summary className="flex items-center justify-between p-5 list-none cursor-pointer select-none">
+                    <div className="flex items-center gap-3">
+                      <HelpCircle
+                        size={20}
+                        className="transition-colors text-slate-400 shrink-0 group-open:text-blue-600"
+                      />
+                      <span className="text-sm font-bold transition-colors text-slate-800 md:text-lg group-hover:text-blue-700">
+                        {faq.q}
+                      </span>
+                    </div>
+                    <span className="p-1 transition-colors rounded-full group-hover:bg-slate-100">
+                      <ChevronDown
+                        size={20}
+                        className="transition-transform duration-300 text-slate-400 group-open:rotate-180"
+                      />
+                    </span>
+                  </summary>
+
+                  <div className="px-5 pb-6 pl-[3.5rem]">
+                    <div
+                      className="text-sm leading-relaxed prose-sm prose text-slate-600 max-w-none md:text-base"
+                      dangerouslySetInnerHTML={{ __html: faq.a }}
+                    />
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
     </div>

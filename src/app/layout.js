@@ -4,6 +4,7 @@ import "./globals.css";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ScheduleCallButton from "@/components/ScheduleCallButton";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
@@ -16,10 +17,9 @@ export default function RootLayout({ children }) {
       <body className="font-sans bg-slate-50 text-slate-900">
         {/* Only show Main Navbar if NOT on an Admin page */}
         {!isAdminPage && <Navbar />}
-
         {/* Main Content */}
         <main className={!isAdminPage ? "min-h-screen" : ""}>{children}</main>
-
+        <ScheduleCallButton /> {/* This makes it float on EVERY page */}
         {/* Only show Footer if NOT on an Admin page */}
         {!isAdminPage && <Footer />}
       </body>
