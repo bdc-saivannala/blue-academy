@@ -221,204 +221,198 @@ export default function HomePage() {
       </section>
 
       {/* =========================================
-          2. LOGO STRIP
+          2. LOGO STRIP (Local Images with Premium Hover Effect)
       ========================================= */}
-      <div className="py-12 overflow-hidden bg-white border-y border-slate-100">
-        <div className="px-6 mx-auto mb-8 text-center max-w-7xl">
-          <p className="font-bold tracking-widest uppercase text-md text-slate-700">
-            Trusted by Top Companies
+      <div className="py-12 bg-white border-y border-slate-100">
+        <div className="px-6 mx-auto max-w-7xl">
+          <p className="mb-12 text-lg font-bold tracking-[0.2em] text-transparent uppercase bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+            Trusted by Engineering Teams at
           </p>
-        </div>
 
-        <div className="relative flex w-full overflow-x-hidden">
-          {/* Fading Edges Mask */}
-          <div className="absolute top-0 bottom-0 left-0 z-10 w-24 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
-          <div className="absolute top-0 bottom-0 right-0 z-10 w-24 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
-
-          {/* Scrolling Track - Using max-content to prevent wrapping */}
-          <div
-            className="flex animate-infinite-scroll hover:paused"
-            style={{ width: "max-content" }}
-          >
-            {/* Original Set */}
-            {logos.map((logo, index) => (
+          <div className="grid items-center grid-cols-2 gap-12 md:grid-cols-5 justify-items-center">
+            {[
+              { name: "Google", src: "/logos/Google-Symbol.png" },
+              { name: "Microsoft", src: "/logos/Microsoft.png" },
+              { name: "Amazon", src: "/logos/amazon.png" },
+              { name: "Meta", src: "/logos/meta.png" },
+              { name: "Adobe", src: "/logos/Adobe-Logo.png" },
+            ].map((brand, i) => (
               <div
-                key={index}
-                className="mx-12 flex items-center justify-center min-w-[100px]"
+                key={i}
+                className="relative flex items-center justify-center w-32 h-12 cursor-pointer group"
               >
-                <h3 className="text-2xl font-bold text-blue-400 transition-opacity cursor-default opacity-60 hover:opacity-100">
-                  {logo}
-                </h3>
-              </div>
-            ))}
+                {/* Image: Grayscale by default, Color on Hover */}
+                <img
+                  src={brand.src}
+                  alt={brand.name}
+                  className="object-contain w-full h-full transition-all duration-500 ease-in-out opacity-50 filter grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+                />
 
-            {/* Duplicate Set (Must be identical for seamless loop) */}
-            {logos.map((logo, index) => (
-              <div
-                key={`dup-${index}`}
-                className="mx-12 flex items-center justify-center min-w-[100px]"
-              >
-                <h3 className="text-2xl font-bold text-blue-400 transition-opacity cursor-default opacity-60 hover:opacity-100">
-                  {logo}
-                </h3>
+                {/* Optional: Subtle Glow Effect behind logo on hover */}
+                <div className="absolute inset-0 transition-all duration-500 rounded-full bg-blue-500/0 blur-xl group-hover:bg-blue-500/10 -z-10"></div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* CSS for Seamless Animation */}
-        <style jsx>{`
-          @keyframes infinite-scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
-          }
-          .animate-infinite-scroll {
-            animation: infinite-scroll 40s linear infinite;
-          }
-          .hover\:paused:hover {
-            animation-play-state: paused;
-          }
-        `}</style>
       </div>
 
       {/* =========================================
-          3. EXPAND YOUR HORIZON (Exact Design Match)
+          3. EXPAND YOUR HORIZON (Sidebar Layout)
       ========================================= */}
       <section className="px-6 py-24 mx-auto max-w-7xl">
-        {/* HEADER - Split Layout */}
-        <div className="flex flex-col items-start justify-between mb-12 lg:flex-row lg:items-end gap-y-6">
-          <div className="max-w-xl">
-            <h2 className="text-3xl font-extrabold text-slate-900 md:text-4xl">
-              Expand Your Horizon
-            </h2>
-            <p className="mt-3 text-lg text-slate-500">
-              Explore our highest-rated programs.
-            </p>
-          </div>
-
-          {/* --- DYNAMIC FILTER BUTTONS --- */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2.5 rounded-lg text-sm font-bold transition-all border ${
-                  activeTab === tab
-                    ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-200"
-                    : "bg-white text-slate-600 border-slate-100 hover:bg-slate-50"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+        <div className="mb-16">
+          <h2 className="text-4xl font-extrabold leading-tight text-slate-900">
+            Expand Your <span className="text-blue-600">Horizon</span>
+          </h2>
+          <p className="mt-2 leading-relaxed text-md text-slate-500">
+            Explore our highest-rated programs designed for modern engineering
+            teams.
+          </p>
         </div>
-
-        {/* COURSE GRID - ALTERNATIVE DESIGN */}
-        {loading ? (
-          <div className="py-20 text-center text-slate-400">
-            Loading courses...
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {filteredCourses.length > 0 ? (
-              filteredCourses.map((course) => (
-                <Link
-                  href={`/courses/${course.slug}`} // Assuming we want it clickable
-                  key={course._id}
-                  className="group flex flex-col h-full bg-white border rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300"
+        <div className="grid items-start grid-cols-1 gap-12 lg:grid-cols-4">
+          {/* LEFT SIDEBAR: Header & Vertical Filters */}
+          <div className="sticky space-y-8 lg:col-span-1 top-24">
+            {/* --- DYNAMIC FILTER BUTTONS (Vertical Column) --- */}
+            <div className="flex flex-col gap-3">
+              {categories.map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`w-full text-left px-5 py-3 rounded-lg text-sm font-bold transition-all duration-200 border flex items-center justify-between group ${
+                    activeTab === tab
+                      ? "bg-blue-600 text-white border-blue-600 shadow-md transform scale-105"
+                      : "bg-white text-slate-600 border-slate-100 hover:border-blue-200 hover:bg-blue-50"
+                  }`}
                 >
-                  {/* 2. IMAGE ON TOP */}
-                  <div className="relative h-40 overflow-hidden">
-                    <img
-                      src={
-                        course.image ||
-                        "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
-                      }
-                      alt={course.title}
-                      className="object-cover w-full h-full p-2 transition-transform duration-500 rounded-2xl group-hover:scale-110"
-                    />
-                  </div>
+                  {tab}
+                  {activeTab === tab && <ChevronRight size={16} />}
+                </button>
+              ))}
+            </div>
 
-                  {/* CONTENT BODY */}
-                  <div className="flex flex-col flex-1 p-5">
-                    {/* 3. DURATION & ENROLLMENT ROW */}
-                    <div className="flex items-center justify-between mb-3 text-xs font-medium text-slate-500">
-                      <div className="flex items-center gap-1.5">
-                        <Clock size={14} className="text-slate-400" />
-                        <span>{course.duration || "3 Months"}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Users size={14} className="text-slate-400" />
-                        <span>2.5k Enrolled</span>{" "}
-                        {/* Static/Mocked as data might not exist */}
-                      </div>
-                    </div>
+            {/* View All Link (Desktop) */}
+            <div className="hidden pt-4 lg:block">
+              <Link
+                href="/courses"
+                className="flex items-center gap-1 text-sm font-bold text-blue-600 hover:underline"
+              >
+                View Full Catalog <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
 
-                    {/* 4. COURSE TITLE */}
-                    <h3 className="mb-2 text-lg font-bold leading-snug transition-colors text-slate-900 line-clamp-2 group-hover:text-blue-600">
-                      {course.title}
-                    </h3>
-
-                    {/* 5. COURSE DESCRIPTION */}
-                    <div
-                      className="mb-2 text-sm leading-relaxed text-slate-600 line-clamp-2"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          course.subtitle?.replace(/<[^>]+>/g, "") ||
-                          "Master the skills needed to launch your tech career.",
-                      }}
-                    />
-
-                    {/* 6. SKILLS & ARROW ROW */}
-                    <div className="flex items-center justify-between pt-2 mt-auto border-t border-slate-100">
-                      {/* Skills (Left) */}
-                      <div className="flex flex-wrap gap-2">
-                        {/* Display only the first skill to keep layout clean, or mapping slice */}
-                        {course.skills && course.skills.length > 1 ? (
-                          <span className="px-2 py-1 text-xs font-medium text-blue-700 rounded bg-blue-50">
-                            {course.skills[0]}
-                          </span>
-                        ) : (
-                          <span className="text-xs font-medium text-slate-500">
-                            Certificate Program
-                          </span>
-                        )}
-                        {course.skills && course.skills.length > 1 && (
-                          <span className="px-1 py-1 text-xs font-medium text-slate-500">
-                            +{course.skills.length - 1}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Right Arrow (Right) */}
-                      <div className="flex items-center justify-center w-8 h-8 transition-all rounded-full bg-slate-50 text-slate-600 group-hover:bg-blue-600 group-hover:text-white">
-                        <ArrowRight size={16} />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))
+          {/* RIGHT CONTENT: Course Grid */}
+          <div className="lg:col-span-3">
+            {loading ? (
+              <div className="py-20 text-center text-slate-400">
+                Loading courses...
+              </div>
             ) : (
-              <div className="col-span-3 py-20 text-center text-slate-400">
-                No courses found matching your criteria.
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {filteredCourses.length > 0 ? (
+                  filteredCourses.map((course) => (
+                    <Link
+                      href={`/courses/${course.slug}`} // Assuming we want it clickable
+                      key={course._id}
+                      className="group flex flex-col h-full bg-white border rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300"
+                    >
+                      {/* 2. IMAGE ON TOP */}
+                      <div className="relative h-40 overflow-hidden">
+                        <img
+                          src={
+                            course.image ||
+                            "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
+                          }
+                          alt={course.title}
+                          className="object-cover w-full h-full p-2 transition-transform duration-500 rounded-2xl group-hover:scale-110"
+                        />
+                      </div>
+
+                      {/* CONTENT BODY */}
+                      <div className="flex flex-col flex-1 p-5">
+                        {/* 3. DURATION & ENROLLMENT ROW */}
+                        <div className="flex items-center justify-between mb-3 text-xs font-medium text-slate-500">
+                          <div className="flex items-center gap-1.5">
+                            <Clock size={14} className="text-slate-400" />
+                            <span>{course.duration || "3 Months"}</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Users size={14} className="text-slate-400" />
+                            <span>2.5k Enrolled</span>{" "}
+                            {/* Static/Mocked as data might not exist */}
+                          </div>
+                        </div>
+
+                        {/* 4. COURSE TITLE */}
+                        <h3 className="mb-2 text-lg font-bold leading-snug transition-colors text-slate-900 line-clamp-2 group-hover:text-blue-600">
+                          {course.title}
+                        </h3>
+
+                        {/* 5. COURSE DESCRIPTION */}
+                        <div
+                          className="mb-2 text-sm leading-relaxed text-slate-600 line-clamp-2"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              course.subtitle?.replace(/<[^>]+>/g, "") ||
+                              "Master the skills needed to launch your tech career.",
+                          }}
+                        />
+
+                        {/* 6. SKILLS & ARROW ROW */}
+                        <div className="flex items-center justify-between pt-2 mt-auto border-t border-slate-100">
+                          {/* Skills (Left) */}
+                          <div className="flex flex-wrap gap-2">
+                            {/* Display only the first skill to keep layout clean, or mapping slice */}
+                            {course.skills && course.skills.length > 1 ? (
+                              <span className="px-2 py-1 text-xs font-medium text-blue-700 rounded bg-blue-50">
+                                {course.skills[0]}
+                              </span>
+                            ) : (
+                              <span className="text-xs font-medium text-slate-500">
+                                Certificate Program
+                              </span>
+                            )}
+                            {course.skills && course.skills.length > 1 && (
+                              <span className="px-1 py-1 text-xs font-medium text-slate-500">
+                                +{course.skills.length - 1}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Right Arrow (Right) */}
+                          <div className="flex items-center justify-center w-8 h-8 transition-all rounded-full bg-slate-50 text-slate-600 group-hover:bg-blue-600 group-hover:text-white">
+                            <ArrowRight size={16} />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <div className="col-span-3 p-8 py-20 text-center border border-dashed bg-slate-50 rounded-2xl border-slate-200">
+                    <p className="font-medium text-slate-500">
+                      No courses found matching this category.
+                    </p>
+                    <button
+                      onClick={() => setActiveTab("All")}
+                      className="mt-2 text-sm font-bold text-blue-600 hover:underline"
+                    >
+                      Clear Filters
+                    </button>
+                  </div>
+                )}
               </div>
             )}
-          </div>
-        )}
 
-        {/* "View All Courses" Button */}
-        <div className="flex justify-center mt-16">
-          <Link
-            href="/courses"
-            className="flex items-center gap-2 px-8 py-3.5 text-sm font-bold bg-white border border-blue-600 text-blue-600 rounded-xl hover:bg-blue-800 hover:text-white transition-all shadow-sm"
-          >
-            View All Courses <ArrowRight size={16} />
-          </Link>
+            {/* View All Link (Mobile) */}
+            <div className="mt-8 text-center lg:hidden">
+              <Link
+                href="/courses"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-bold text-blue-600 bg-white border border-blue-600 rounded-xl hover:bg-blue-50"
+              >
+                View Full Catalog <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

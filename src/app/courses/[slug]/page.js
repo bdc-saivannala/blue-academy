@@ -43,6 +43,8 @@ import {
 import ApplicationForm from "@/components/ApplicationForm";
 import Instructors from "@/components/Instructors";
 import CareerSection from "@/components/CareerSection";
+import CurriculumSection from "@/components/CurriculumSection";
+import EnrollmentSection from "@/components/EnrollmentSection";
 
 // --- 1. FETCH DATA ---
 async function getCourse(slug) {
@@ -60,128 +62,128 @@ async function getCourse(slug) {
 }
 
 // --- 2. FIXED CURRICULUM COMPONENT ---
-const RichCurriculum = ({ modules }) => {
-  return (
-    <div className="flex flex-col gap-4">
-      {modules.map((module, i) => (
-        <details
-          key={i}
-          className="overflow-hidden transition-all bg-white border shadow-sm group/module border-slate-200 rounded-xl hover:shadow-md open:ring-1 open:ring-blue-100"
-        >
-          {/* MODULE HEADER */}
-          <summary className="flex items-center justify-between p-5 list-none transition-colors bg-white cursor-pointer hover:bg-slate-50">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-8 h-8 text-sm font-bold text-blue-600 rounded-full bg-blue-50 shrink-0">
-                {i + 1}
-              </div>
-              <span className="text-lg font-bold text-slate-800">
-                {module.title}
-              </span>
-            </div>
-            <span className="flex items-center gap-3">
-              <span className="hidden text-xs font-semibold tracking-wider uppercase text-slate-400 sm:block">
-                {module.sections
-                  ? `${module.sections.length} Sections`
-                  : "View Content"}
-              </span>
-              <ChevronDown
-                size={20}
-                className="transition-transform duration-300 text-slate-400 group-open/module:rotate-180"
-              />
-            </span>
-          </summary>
+// const RichCurriculum = ({ modules }) => {
+//   return (
+//     <div className="flex flex-col gap-4">
+//       {modules.map((module, i) => (
+//         <details
+//           key={i}
+//           className="overflow-hidden transition-all bg-white border shadow-sm group/module border-slate-200 rounded-xl hover:shadow-md open:ring-1 open:ring-blue-100"
+//         >
+//           {/* MODULE HEADER */}
+//           <summary className="flex items-center justify-between p-5 list-none transition-colors bg-white cursor-pointer hover:bg-slate-50">
+//             <div className="flex items-center gap-4">
+//               <div className="flex items-center justify-center w-8 h-8 text-sm font-bold text-blue-600 rounded-full bg-blue-50 shrink-0">
+//                 {i + 1}
+//               </div>
+//               <span className="text-lg font-bold text-slate-800">
+//                 {module.title}
+//               </span>
+//             </div>
+//             <span className="flex items-center gap-3">
+//               <span className="hidden text-xs font-semibold tracking-wider uppercase text-slate-400 sm:block">
+//                 {module.sections
+//                   ? `${module.sections.length} Sections`
+//                   : "View Content"}
+//               </span>
+//               <ChevronDown
+//                 size={20}
+//                 className="transition-transform duration-300 text-slate-400 group-open/module:rotate-180"
+//               />
+//             </span>
+//           </summary>
 
-          {/* MODULE CONTENT AREA */}
-          <div className="p-6 pt-4 border-t border-slate-100 bg-slate-50/40">
-            {/* Module Description */}
-            {module.details && (
-              <div
-                className="mb-6 text-sm leading-relaxed prose-sm prose max-w-none text-slate-600"
-                dangerouslySetInnerHTML={{ __html: module.details }}
-              />
-            )}
+//           {/* MODULE CONTENT AREA */}
+//           <div className="p-6 pt-4 border-t border-slate-100 bg-slate-50/40">
+//             {/* Module Description */}
+//             {module.details && (
+//               <div
+//                 className="mb-6 text-sm leading-relaxed prose-sm prose max-w-none text-slate-600"
+//                 dangerouslySetInnerHTML={{ __html: module.details }}
+//               />
+//             )}
 
-            {/* --- NESTED SECTIONS LIST (COLLAPSIBLE) --- */}
-            {module.sections && module.sections.length > 0 && (
-              <div className="flex flex-col gap-3">
-                {module.sections.map((section, j) => (
-                  <details
-                    key={j}
-                    className="overflow-hidden transition-all bg-white border rounded-lg group/section border-slate-200 hover:border-blue-300 open:border-blue-400 open:shadow-sm"
-                  >
-                    {/* SECTION HEADER */}
-                    <summary className="flex items-center justify-between p-4 list-none transition-colors bg-white cursor-pointer hover:bg-slate-50">
-                      <div className="flex items-center gap-3">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 group-open/section:bg-blue-600"></div>
-                        <h4 className="text-sm font-bold text-slate-800 group-hover/section:text-blue-700">
-                          {section.title}
-                        </h4>
-                      </div>
-                      <ChevronDown
-                        size={16}
-                        className="transition-transform duration-300 text-slate-400 group-open/section:rotate-180 group-open/section:text-blue-600"
-                      />
-                    </summary>
+//             {/* --- NESTED SECTIONS LIST (COLLAPSIBLE) --- */}
+//             {module.sections && module.sections.length > 0 && (
+//               <div className="flex flex-col gap-3">
+//                 {module.sections.map((section, j) => (
+//                   <details
+//                     key={j}
+//                     className="overflow-hidden transition-all bg-white border rounded-lg group/section border-slate-200 hover:border-blue-300 open:border-blue-400 open:shadow-sm"
+//                   >
+//                     {/* SECTION HEADER */}
+//                     <summary className="flex items-center justify-between p-4 list-none transition-colors bg-white cursor-pointer hover:bg-slate-50">
+//                       <div className="flex items-center gap-3">
+//                         <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0 group-open/section:bg-blue-600"></div>
+//                         <h4 className="text-sm font-bold text-slate-800 group-hover/section:text-blue-700">
+//                           {section.title}
+//                         </h4>
+//                       </div>
+//                       <ChevronDown
+//                         size={16}
+//                         className="transition-transform duration-300 text-slate-400 group-open/section:rotate-180 group-open/section:text-blue-600"
+//                       />
+//                     </summary>
 
-                    {/* SECTION CONTENT (Concepts, Labs, Tools) */}
-                    <div className="p-5 space-y-6 border-t border-slate-100 bg-slate-50/50">
-                      {/* Core Concepts */}
-                      {section.concepts && (
-                        <div>
-                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
-                            Core Concepts
-                          </p>
-                          <div
-                            className="text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500"
-                            dangerouslySetInnerHTML={{
-                              __html: section.concepts,
-                            }}
-                          />
-                        </div>
-                      )}
+//                     {/* SECTION CONTENT (Concepts, Labs, Tools) */}
+//                     <div className="p-5 space-y-6 border-t border-slate-100 bg-slate-50/50">
+//                       {/* Core Concepts */}
+//                       {section.concepts && (
+//                         <div>
+//                           <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+//                             Core Concepts
+//                           </p>
+//                           <div
+//                             className="text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500"
+//                             dangerouslySetInnerHTML={{
+//                               __html: section.concepts,
+//                             }}
+//                           />
+//                         </div>
+//                       )}
 
-                      {/* Hands-on Labs */}
-                      {section.labs && (
-                        <div>
-                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
-                            Hands-on Labs
-                          </p>
-                          <div
-                            className="p-4 text-sm border rounded-lg bg-white border-slate-200 text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-green-500"
-                            dangerouslySetInnerHTML={{ __html: section.labs }}
-                          />
-                        </div>
-                      )}
+//                       {/* Hands-on Labs */}
+//                       {section.labs && (
+//                         <div>
+//                           <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+//                             Hands-on Labs
+//                           </p>
+//                           <div
+//                             className="p-4 text-sm border rounded-lg bg-white border-slate-200 text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-green-500"
+//                             dangerouslySetInnerHTML={{ __html: section.labs }}
+//                           />
+//                         </div>
+//                       )}
 
-                      {/* Tools Used */}
-                      {section.tools && section.tools.length > 0 && (
-                        <div>
-                          <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
-                            Tools & Stack
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2">
-                            {section.tools.map((tool, k) => (
-                              <span
-                                key={k}
-                                className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded border border-blue-100 flex items-center gap-1"
-                              >
-                                <Terminal size={12} /> {tool}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </details>
-                ))}
-              </div>
-            )}
-          </div>
-        </details>
-      ))}
-    </div>
-  );
-};
+//                       {/* Tools Used */}
+//                       {section.tools && section.tools.length > 0 && (
+//                         <div>
+//                           <p className="mb-2 text-[10px] font-extrabold tracking-widest uppercase text-slate-400">
+//                             Tools & Stack
+//                           </p>
+//                           <div className="flex flex-wrap items-center gap-2">
+//                             {section.tools.map((tool, k) => (
+//                               <span
+//                                 key={k}
+//                                 className="px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 rounded border border-blue-100 flex items-center gap-1"
+//                               >
+//                                 <Terminal size={12} /> {tool}
+//                               </span>
+//                             ))}
+//                           </div>
+//                         </div>
+//                       )}
+//                     </div>
+//                   </details>
+//                 ))}
+//               </div>
+//             )}
+//           </div>
+//         </details>
+//       ))}
+//     </div>
+//   );
+// };
 
 export default async function CourseDetailPage({ params }) {
   const { slug } = await params;
@@ -257,7 +259,7 @@ export default async function CourseDetailPage({ params }) {
                 <span className="text-blue-100">{course.category}</span>
               </div>
 
-              <h1 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
+              <h1 className="text-4xl font-bold leading-tight md:text-5xl">
                 {course.title}
               </h1>
 
@@ -423,14 +425,15 @@ export default async function CourseDetailPage({ params }) {
                 <GraduationCap size={24} className="text-blue-600" /> Course
                 Content
               </h2>
-              <RichCurriculum modules={course.curriculum || []} />
+              {/* <RichCurriculum modules={course.curriculum || []} /> */}
+              <CurriculumSection modules={course.curriculum || []} />
             </section>
 
             {/* CAPSTONE PROJECTS (Redesigned with Expand/Collapse) */}
             <section id="projects">
               <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
-                <LibraryBig size={24} className="text-blue-600" /> Description
-                of Capstone projects
+                <LibraryBig size={24} className="text-blue-600" /> Overview of
+                Capstone Projects
               </h2>
 
               <div className="bg-[#1e293b] rounded-2xl overflow-hidden p-2">
@@ -590,7 +593,7 @@ export default async function CourseDetailPage({ params }) {
         {/* --- FULL WIDTH SECTION (Enrollment -> FAQs) --- */}
         <div className="mt-12 space-y-12">
           {/* --- SECTION: Enrollment Process --- */}
-          <section>
+          {/* <section>
             <h2 className="flex items-center gap-2 mb-6 text-2xl font-bold text-slate-900">
               <FilePen size={24} className="text-blue-600" />
               How do I enroll in this course?
@@ -604,8 +607,6 @@ export default async function CourseDetailPage({ params }) {
               </div>
 
               <div className="relative px-4 mx-auto max-w-7xl">
-                {/* Dashed Connecting Line (Desktop) */}
-                {/* Positioned top-10 to align with center of h-20 (5rem) icons */}
                 <div className="hidden md:block absolute top-6 left-[12%] right-[12%] border-t-2 border-dashed border-slate-300 z-0"></div>
 
                 <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-4">
@@ -680,7 +681,9 @@ export default async function CourseDetailPage({ params }) {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
+          <EnrollmentSection />
+          
 
           {/* INSTRUCTORS & REVIEWS */}
           <Instructors list={course.instructors || []} />
@@ -981,8 +984,8 @@ export default async function CourseDetailPage({ params }) {
               </div>
             </div>
           </section>
-          
-          {/* Success Stories */}          
+
+          {/* Success Stories */}
           {/* <section>
             <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-900">
               <StarHalf size={24} className="text-blue-600" /> Success Stories
