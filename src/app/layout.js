@@ -1,14 +1,14 @@
-"use client"; // Needed for usePathname
+"use client";
 
 import "./globals.css";
 import { usePathname } from "next/navigation";
-import { Plus_Jakarta_Sans } from "next/font/google"; // 1. Import Font
+import { Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScheduleCallButton from "@/components/ScheduleCallButton";
+import ScheduleCallButton from "@/components/ScheduleCallButton"; // Bottom-24
+import FloatingLeadForm from "@/components/FloatingLeadForm"; // Bottom-48 (Updated in Step 1)
 import Script from "next/script";
 
-// 2. Configure the Font
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
@@ -17,32 +17,34 @@ const jakarta = Plus_Jakarta_Sans({
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-
-  // Check if we are in the Admin section
   const isAdminPage = pathname && pathname.startsWith("/admin");
 
   return (
     <html lang="en">
-      {/* 3. Apply the font class to the Body */}
       <body
         className={`${jakarta.className} font-sans bg-slate-50 text-slate-900`}
       >
-        {/* Only show Main Navbar if NOT on an Admin page */}
         {!isAdminPage && <Navbar />}
 
-        {/* Main Content */}
         <main className={!isAdminPage ? "min-h-screen" : ""}>{children}</main>
 
-        {/* Floating Call Button (Visible on every page) */}
-        {!isAdminPage && <ScheduleCallButton />}
+        {/* --- FLOATING ACTIONS --- */}
+        {!isAdminPage && (
+          <>
+            {/* 1. Lead Form (Highest: bottom-48) */}
+            <FloatingLeadForm />
 
-        {/* --- CHAT WIDGET --- */}
-        {!isAdminPage && <Script
-          src="https://lustrously-prorevision-lesley.ngrok-free.dev/chat-widget/chat-widget.js"
-          strategy="lazyOnload"
-        />}
+            {/* 2. Schedule Call (Middle: bottom-24) */}
+            <ScheduleCallButton />
 
-        {/* Only show Footer if NOT on an Admin page */}
+            {/* 3. Chat Widget (Lowest: bottom-0/4) */}
+            <Script
+              src="https://lustrously-prorevision-lesley.ngrok-free.dev/chat-widget/chat-widget.js"
+              strategy="lazyOnload"
+            />
+          </>
+        )}
+
         {!isAdminPage && <Footer />}
       </body>
     </html>

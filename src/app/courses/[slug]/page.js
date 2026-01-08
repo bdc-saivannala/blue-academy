@@ -683,10 +683,12 @@ export default async function CourseDetailPage({ params }) {
             </div>
           </section> */}
           <EnrollmentSection />
-          
 
-          {/* INSTRUCTORS & REVIEWS */}
-          <Instructors list={course.instructors || []} />
+          {/* INSTRUCTORS */}
+          <Instructors
+            list={course.instructors || []}
+            leaders={course.leaders || []}
+          />
 
           {/* --- SECTION: PRICING (Modern Card Design) --- */}
           <section>

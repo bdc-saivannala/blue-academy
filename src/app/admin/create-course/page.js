@@ -127,6 +127,10 @@ export default function CreateCourse() {
     { title: "", details: "", tools: "" },
   ]); // Added tools string
 
+  const [leaders, setLeaders] = useState([
+    { name: "", role: "", company: "", image: "" },
+  ]);
+
   const [instructors, setInstructors] = useState([
     { name: "", role: "", company: "", image: "" },
   ]);
@@ -256,6 +260,7 @@ export default function CreateCourse() {
                 .filter(Boolean)
             : [],
         })),
+        leaders,
         instructors,
         jobRoles,
         reviews,
@@ -732,10 +737,85 @@ export default function CreateCourse() {
           </div>
         </div>
 
-        {/* --- 8. INSTRUCTORS --- */}
+        {/* --- 8. PROGRAM LEADERS --- */}
         <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
           <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
-            <h2 className="mb-0 section-title">8. Instructors</h2>
+            <h2 className="mb-0 text-lg font-bold tracking-wide text-blue-600 uppercase">
+              8. Program Leaders
+            </h2>
+            <button
+              type="button"
+              onClick={() =>
+                addItem(setLeaders, {
+                  name: "",
+                  company: "",
+                  image: "",
+                })
+              }
+              className="btn-add"
+            >
+              <Plus size={16} /> Add Leader
+            </button>
+          </div>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {leaders.map((item, idx) => (
+              <div key={idx} className="relative pt-10 repeater-card">
+                {/* STATIC ROLE LABEL based on Index */}
+                <span className="absolute top-0 left-0 px-3 py-1 text-[10px] font-bold tracking-widest text-white uppercase bg-slate-800 rounded-br-lg">
+                  {idx === 0
+                    ? "Program Director"
+                    : idx === 1
+                    ? "Program Manager"
+                    : `Leader #${idx + 1}`}
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => removeItem(setLeaders, idx)}
+                  className="absolute top-2 right-2 btn-delete-small"
+                >
+                  <Trash2 size={14} />
+                </button>
+
+                <div className="w-full p-4 space-y-3">
+                  {/* INPUT: Name */}
+                  <input
+                    placeholder="Full Name"
+                    className="input-field"
+                    value={item.name}
+                    onChange={(e) =>
+                      updateItem(setLeaders, idx, "name", e.target.value)
+                    }
+                  />
+
+                  {/* INPUT: Company */}
+                  <input
+                    placeholder="Company / Credentials"
+                    className="input-field"
+                    value={item.company}
+                    onChange={(e) =>
+                      updateItem(setLeaders, idx, "company", e.target.value)
+                    }
+                  />
+
+                  {/* INPUT: Image */}
+                  <ImageUpload
+                    label="Profile Photo"
+                    value={item.image}
+                    onChange={(url) =>
+                      updateItem(setLeaders, idx, "image", url)
+                    }
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* --- 9. INSTRUCTORS --- */}
+        <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
+          <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
+            <h2 className="mb-0 section-title">9. Instructors</h2>
             <button
               type="button"
               onClick={() =>
@@ -802,10 +882,10 @@ export default function CreateCourse() {
           </div>
         </div>
 
-        {/* --- 9. JOB ROLES --- */}
+        {/* --- 10. JOB ROLES --- */}
         <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
           <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
-            <h2 className="mb-0 section-title">9. Career Opportunities</h2>
+            <h2 className="mb-0 section-title">10. Career Opportunities</h2>
             <button
               type="button"
               onClick={() =>
@@ -862,10 +942,10 @@ export default function CreateCourse() {
           </div>
         </div>
 
-        {/* --- 9. REVIEWS --- */}
+        {/* --- 11. REVIEWS --- */}
         <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
           <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
-            <h2 className="mb-0 section-title">9. Student Reviews</h2>
+            <h2 className="mb-0 section-title">11. Student Reviews</h2>
             <button
               type="button"
               onClick={() =>
@@ -931,10 +1011,10 @@ export default function CreateCourse() {
           </div>
         </div>
 
-        {/* --- 10. FAQS --- */}
+        {/* --- 12. FAQS --- */}
         <div className="p-8 bg-white border shadow-sm rounded-2xl border-slate-200">
           <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
-            <h2 className="mb-0 section-title">10. FAQs</h2>
+            <h2 className="mb-0 section-title">12. FAQs</h2>
             <button
               type="button"
               onClick={() => addItem(setFaqs, { q: "", a: "" })}
