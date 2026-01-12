@@ -20,8 +20,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-import ScheduleCallButton from "@/components/ScheduleCallButton";
-
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -132,8 +130,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen font-sans bg-white text-slate-900">
-      {/* --- ADD FLOATING BUTTON HERE --- */}
-      <ScheduleCallButton />
 
       {/* =========================================
           1. HERO SECTION
@@ -170,7 +166,7 @@ export default function HomePage() {
                 Explore Courses <ArrowRight size={18} />
               </Link>
               <button className="px-8 py-3.5 bg-white text-slate-700 font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-all flex items-center gap-2">
-                <Play size={18} className="fill-slate-700" /> Watch Demo
+                <Play size={18} className="fill-slate-700" /> Watch Video
               </button>
             </div>
 
@@ -190,7 +186,7 @@ export default function HomePage() {
               </div>
               <div className="text-sm">
                 <p className="font-bold text-slate-900">4.8/5 Rating</p>
-                <p className="text-slate-500">from 15k+ students</p>
+                <p className="text-slate-500">from 5k+ corporate learners</p>
               </div>
             </div>
           </div>
@@ -699,12 +695,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* --- CHAT WIDGET --- */}
-      <Script
-        src="https://lustrously-prorevision-lesley.ngrok-free.dev/chat-widget/chat-widget.js"
-        strategy="lazyOnload"
-      />
     </div>
   );
 }

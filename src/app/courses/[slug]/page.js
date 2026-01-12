@@ -272,7 +272,7 @@ export default async function CourseDetailPage({ params }) {
                       <Award size={16} /> Certification Covered
                     </h4>
                     <p className="font-medium text-white">
-                      Google Cloud Certified - Generative AI Engineer
+                      Google Cloud Certified - {course.category}
                     </p>
                   </div>
                   <div>
@@ -310,9 +310,6 @@ export default async function CourseDetailPage({ params }) {
                   </h2>
                   <div className="grid grid-cols-3 gap-4">
                     <div className="space-y-1">
-                      <p className="text-[10px] text-slate-500 font-bold uppercase">
-                        Mode
-                      </p>
                       <div className="flex items-center gap-2 text-sm text-slate-300">
                         <MonitorPlay size={16} className="text-blue-500" />
                         <span className="truncate">
@@ -321,21 +318,21 @@ export default async function CourseDetailPage({ params }) {
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] text-slate-500 font-bold uppercase">
-                        Labs
-                      </p>
                       <div className="flex items-center gap-2 text-sm text-slate-300">
                         <FlaskConical size={16} className="text-green-500" />
                         <span>Hands-on</span>
                       </div>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[10px] text-slate-500 font-bold uppercase">
-                        Support
-                      </p>
                       <div className="flex items-center gap-2 text-sm text-slate-300">
                         <Headphones size={16} className="text-yellow-500" />
                         <span>24x7 Active</span>
+                      </div>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 text-sm text-slate-300">
+                        <Clock size={16} className="text-white animate-pulse" />
+                        <span>{course.duration || "3 Months"}</span>
                       </div>
                     </div>
                   </div>

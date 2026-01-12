@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Phone, X, Loader2, Send } from "lucide-react";
 
-export default function FloatingLeadForm() {
+export default function InstantCall() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -98,7 +98,7 @@ export default function FloatingLeadForm() {
           <div className="relative">
             <Phone className="w-6 h-6 text-white group-hover:animate-pulse" />
             <span className="absolute right-full mr-8 top-1/2 -translate-y-1/2 bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-              Book a Call
+              Instant Call
             </span>
           </div>
         )}
