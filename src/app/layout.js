@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
             {/* 3. Chat Widget (Lowest: bottom-0/4) */}
 
             <Script
-              src="https://blue-academy-pre-sales-v1-0-1.onrender.com/chat-widget/chat-widget.js"
+              src="https://blue-academy-pre-sales-v1-0.onrender.com/chat-widget/chat-widget.js"
               strategy="lazyOnload"
             />
           </>

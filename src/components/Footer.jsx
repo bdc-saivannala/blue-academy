@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Facebook, Twitter, Linkedin } from "lucide-react";
+// 1. Added Youtube and Instagram to imports
+import { Linkedin, Youtube, Instagram } from "lucide-react";
 
 const Footer = () => {
   const [courses, setCourses] = useState([]);
@@ -22,6 +23,16 @@ const Footer = () => {
     };
     fetchCourses();
   }, []);
+
+  // 2. Created a configuration for your links
+  const socialLinks = [
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/blue-academy-ai/",
+    },
+    { icon: Instagram, href: "https://www.instagram.com/blueacademy.ai/" },
+    { icon: Youtube, href: "https://www.youtube.com/@blueacademy_ai" },
+  ];
 
   return (
     <footer className="pt-16 pb-8 font-sans bg-[#020617] border-t border-slate-800 text-slate-400">
@@ -44,14 +55,18 @@ const Footer = () => {
               Empowering learners worldwide with cutting-edge skills for the
               digital age. Start your journey today.
             </p>
+
+            {/* 3. Updated Social Media Section */}
             <div className="flex gap-4">
-              {[Facebook, Twitter, Linkedin].map((Icon, i) => (
+              {socialLinks.map((item, i) => (
                 <a
                   key={i}
-                  href="#"
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="transition-colors text-slate-400 hover:text-white"
                 >
-                  <Icon size={20} fill="currentColor" className="stroke-none" />
+                  <item.icon size={20} />
                 </a>
               ))}
             </div>

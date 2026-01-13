@@ -130,7 +130,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen font-sans bg-white text-slate-900">
-
       {/* =========================================
           1. HERO SECTION
       ========================================= */}
@@ -227,11 +226,16 @@ export default function HomePage() {
 
           <div className="grid items-center grid-cols-2 gap-12 md:grid-cols-5 justify-items-center">
             {[
-              { name: "Google", src: "/logos/Google-Symbol.png" },
-              { name: "Microsoft", src: "/logos/Microsoft.png" },
-              { name: "Amazon", src: "/logos/amazon.png" },
-              { name: "Meta", src: "/logos/meta.png" },
-              { name: "Adobe", src: "/logos/Adobe-Logo.png" },
+              { name: "TCS", src: "/logos/TCS_Logo.png" },
+              { name: "Walmart", src: "/logos/walmart.png" },
+              { name: "JP morgen", src: "/logos/Jp-Morgan.png" },
+              { name: "Nokia", src: "/logos/nokia.png" },
+              { name: "Adnoc", src: "/logos/ADNOCDRILL.png" },
+              { name: "Zydus", src: "/logos/ZYDUSLIFE.png" },
+              { name: "qualcomm", src: "/logos/QCOM.png" },
+              { name: "Wipro", src: "/logos/Wipro.png" },
+              { name: "Eros", src: "/logos/eros.png" },
+              { name: "Times network", src: "/logos/times-network.png" },
             ].map((brand, i) => (
               <div
                 key={i}
