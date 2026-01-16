@@ -45,6 +45,7 @@ import Instructors from "@/components/Instructors";
 import CareerSection from "@/components/CareerSection";
 import CurriculumSection from "@/components/CurriculumSection";
 import EnrollmentSection from "@/components/EnrollmentSection";
+import PricingSection from "@/components/PricingSection";
 
 // --- 1. FETCH DATA ---
 async function getCourse(slug) {
@@ -688,7 +689,7 @@ export default async function CourseDetailPage({ params }) {
           />
 
           {/* --- SECTION: PRICING (Modern Card Design) --- */}
-          <section>
+          {/* <section>
             <div className="mb-12">
               <h2 className="flex items-center gap-2 mb-4 text-2xl font-bold text-slate-90">
                 <Currency size={24} className="text-blue-600" />
@@ -702,7 +703,7 @@ export default async function CourseDetailPage({ params }) {
             <div className="bg-gradient-to-b from-slate-50 to-white">
               <div className="container px-4 mx-auto max-w-7xl">
                 <div className="grid max-w-6xl gap-8 mx-auto md:grid-cols-3">
-                  {/* Application Fee Card */}
+                
                   <div className="relative p-8 transition-shadow bg-white border-2 border-slate-200 rounded-2xl hover:shadow-lg">
                     <div className="mb-4">
                       <FileText className="w-12 h-12 mb-4 text-blue-500" />
@@ -725,7 +726,6 @@ export default async function CourseDetailPage({ params }) {
                     </div>
                   </div>
 
-                  {/* Program Fee Card - Featured */}
                   <div className="relative p-8 text-white transform shadow-xl bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl md:scale-105">
                     <div className="absolute top-0 right-0 px-4 py-1 text-sm font-bold text-blue-900 bg-yellow-400 rounded-bl-xl rounded-tr-xl">
                       SCHOLARSHIP APPLIED
@@ -740,7 +740,6 @@ export default async function CourseDetailPage({ params }) {
                       </p>
                     </div>
 
-                    {/* Price with discount */}
                     <div className="mb-6">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-lg text-blue-200 line-through">
@@ -793,7 +792,6 @@ export default async function CourseDetailPage({ params }) {
                     </div>
                   </div>
 
-                  {/* EMI Options Card */}
                   <div className="relative p-8 transition-shadow bg-white border-2 border-slate-200 rounded-2xl hover:shadow-lg">
                     <div className="mb-4">
                       <Calculator className="w-12 h-12 mb-4 text-green-500" />
@@ -805,7 +803,6 @@ export default async function CourseDetailPage({ params }) {
                       </p>
                     </div>
 
-                    {/* Calculate EMI based on actual course fee */}
                     {(() => {
                       const baseFee = parseInt(
                         course.fee?.replace(/,/g, "") || "50000"
@@ -933,7 +930,6 @@ export default async function CourseDetailPage({ params }) {
                   </div>
                 </div>
 
-                {/* Payment Methods */}
                 <div className="mt-12 text-center">
                   <p className="mb-4 text-sm text-slate-600">
                     Accepted Payment Methods
@@ -962,7 +958,6 @@ export default async function CourseDetailPage({ params }) {
                   </div>
                 </div>
 
-                {/* CTA Section */}
                 <div className="p-8 mt-16 text-center bg-slate-100 rounded-2xl">
                   <h3 className="mb-4 text-xl font-bold text-slate-900">
                     Ready to Start Your Journey?
@@ -982,7 +977,8 @@ export default async function CourseDetailPage({ params }) {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
+          {course && <PricingSection course={course} />}
 
           {/* Success Stories */}
           {/* <section>
