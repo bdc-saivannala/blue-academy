@@ -73,7 +73,7 @@ const Footer = () => {
           </div>
 
           {/* 2. LINKS COLUMNS (Right - 4 Columns) */}
-          <div className="grid grid-cols-2 gap-8 lg:col-span-8 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 lg:col-span-8 md:grid-cols-4">
             {/* Column 1: Company */}
             <div>
               <h4 className="mb-6 text-xs font-bold tracking-wider text-white uppercase">
@@ -181,34 +181,50 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Column 4: Legal */}
+            {/* Column 4: Support */}
             <div>
               <h4 className="mb-6 text-xs font-bold tracking-wider text-white uppercase">
-                Legal
+                Support
               </h4>
               <ul className="space-y-4 text-sm">
                 <li>
                   <Link
-                    href="#"
+                    href="/contact"
                     className="transition-colors hover:text-blue-400"
                   >
-                    Privacy
+                    Contact
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/terms-conditions"
                     className="transition-colors hover:text-blue-400"
                   >
-                    Terms
+                    Terms & Conditions
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    href="/privacy-policy"
                     className="transition-colors hover:text-blue-400"
                   >
-                    Security
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/refund-policy"
+                    className="transition-colors hover:text-blue-400"
+                  >
+                    Cancellation & Refund Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/shipping-policy"
+                    className="transition-colors hover:text-blue-400"
+                  >
+                    Shipping & Delivery Policy
                   </Link>
                 </li>
               </ul>

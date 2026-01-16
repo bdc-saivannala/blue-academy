@@ -456,6 +456,11 @@ export default function EditCourse({ params }) {
                 className="bg-white input-field"
               >
                 <option value="">Select a Category</option>
+                <option value="Deep-Tech AI">Deep-Tech AI</option>
+                <option value="AI for Leadership">AI for Leadership</option>
+                <option value="Workplace productivity">
+                  Workplace productivity
+                </option>
                 <option value="Development">Development</option>
                 <option value="Data Science & AI">Data Science & AI</option>
                 <option value="GenAI Engineering">GenAI Engineering</option>

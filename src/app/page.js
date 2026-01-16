@@ -114,20 +114,6 @@ export default function HomePage() {
           (course) => course.category && course.category.trim() === activeTab
         );
 
-  // Logos to scroll
-  const logos = [
-    "Google",
-    "Microsoft",
-    "Spotify",
-    "Amazon",
-    "Airbnb",
-    "Meta",
-    "Netflix",
-    "Adobe",
-    "Tesla",
-    "Uber",
-  ];
-
   return (
     <div className="min-h-screen font-sans bg-white text-slate-900">
       {/* =========================================
@@ -241,11 +227,11 @@ export default function HomePage() {
                 key={i}
                 className="relative flex items-center justify-center w-32 h-12 cursor-pointer group"
               >
-                {/* Image: Grayscale by default, Color on Hover */}
+                {/* Image: fade original color by default, Color on Hover */}
                 <img
                   src={brand.src}
                   alt={brand.name}
-                  className="object-contain w-full h-full transition-all duration-500 ease-in-out opacity-50 filter grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110"
+                  className="object-contain w-full h-full transition-all duration-500 ease-in-out opacity-70 filter group-hover:opacity-100 group-hover:scale-110"
                 />
 
                 {/* Optional: Subtle Glow Effect behind logo on hover */}

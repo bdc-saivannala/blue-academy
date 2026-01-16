@@ -1,4 +1,4 @@
-"use client"; // Required for form interactivity
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -9,11 +9,11 @@ import {
   Clock,
   ArrowRight,
   Send,
+  CheckCircle,
+  HelpCircle,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
 
 export default function ContactPage() {
-  // State for Form Data
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -23,13 +23,11 @@ export default function ContactPage() {
   });
   const [status, setStatus] = useState("");
 
-  // Handle Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle Form Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("Sending...");
@@ -55,7 +53,7 @@ export default function ContactPage() {
           email: "",
           phone: "",
           message: "",
-        }); // Reset form
+        });
       } else {
         setStatus("Failed to send message. Please try again.");
       }
@@ -66,101 +64,131 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* 1. HERO HEADER (Dark Theme) */}
-      <div className="bg-[#0B1120] text-white pt-32 pb-48 px-6 relative overflow-hidden">
-        {/* Abstract Background Glow */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3"></div>
+    <div className="min-h-screen font-sans bg-slate-50 selection:bg-blue-100 selection:text-blue-900">
+      {/* 1. HERO SECTION */}
+      <div className="relative bg-[#020617] pt-32 pb-64 overflow-hidden">
+        {/* Tech Grid Background Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
-        <div className="relative z-10 mx-auto text-center max-w-7xl">
-          <span className="block mb-3 text-xs font-bold tracking-widest text-blue-400 uppercase">
-            We'd love to hear from you
-          </span>
-          <h1 className="mb-6 text-4xl font-extrabold tracking-tight md:text-6xl">
-            Let's Start a Conversation
+        {/* Glow Effects */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] opacity-50"></div>
+
+        <div className="relative z-10 max-w-4xl px-6 mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-semibold tracking-wide text-blue-300 uppercase border rounded-full bg-blue-900/30 border-blue-700/50">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inline-flex w-full h-full bg-blue-400 rounded-full opacity-75 animate-ping"></span>
+              <span className="relative inline-flex w-2 h-2 bg-blue-500 rounded-full"></span>
+            </span>
+            We are here to help
+          </div>
+          <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white md:text-6xl">
+            Get in touch with{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
+              Blue Academy
+            </span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg leading-relaxed text-slate-400">
-            Whether you are a student looking for course details or an
-            enterprise looking for corporate training, our team is ready to
-            help.
+            Have questions about our courses, corporate training, or consulting?
+            Our team is ready to provide the answers you need.
           </p>
         </div>
       </div>
 
-      {/* 2. FLOATING CONTACT SECTION */}
-      <div className="relative z-20 px-6 pb-20 mx-auto -mt-32 max-w-7xl">
-        <div className="grid grid-cols-1 overflow-hidden bg-white border shadow-2xl rounded-3xl lg:grid-cols-12 border-slate-200">
-          {/* LEFT: Contact Information (Blue Gradient) */}
-          <div className="relative flex flex-col justify-between p-10 overflow-hidden text-white lg:col-span-5 bg-gradient-to-br from-blue-900 to-slate-900">
-            {/* Decor Circle */}
-            <div className="absolute w-40 h-40 rounded-full -bottom-10 -left-10 bg-blue-500/20 blur-2xl"></div>
+      {/* 2. MAIN CONTENT (Overlap Layout) */}
+      <div className="relative z-20 px-4 pb-20 mx-auto -mt-40 max-w-7xl sm:px-6 lg:px-8">
+        <div className="bg-white shadow-2xl rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[600px] border border-slate-100">
+          {/* LEFT COLUMN: Contact Info */}
+          <div className="relative p-10 lg:col-span-5 bg-gradient-to-br from-blue-900 via-[#0f172a] to-slate-900 text-white flex flex-col justify-between overflow-hidden">
+            {/* Background Texture */}
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff33_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-            <div>
-              <h3 className="mb-2 text-2xl font-bold">Contact Information</h3>
-              <p className="mb-10 text-sm text-blue-200">
+            <div className="relative">
+              <h3 className="text-2xl font-bold tracking-tight">
+                Contact Information
+              </h3>
+              <p className="mt-2 text-sm text-blue-200">
                 Fill out the form and our team will get back to you within 24
                 hours.
               </p>
 
-              <div className="space-y-8">
-                <div className="flex items-start gap-4 group">
-                  <div className="flex items-center justify-center w-12 h-12 transition-colors bg-white/10 rounded-xl shrink-0 group-hover:bg-blue-500">
-                    <Phone className="text-white" size={20} />
+              <div className="mt-10 space-y-8">
+                {/* Phone */}
+                <div className="flex gap-4">
+                  <div className="flex items-center justify-center w-12 h-12 text-blue-400 border rounded-lg bg-blue-500/10 border-blue-500/20 shrink-0">
+                    <Phone size={24} />
                   </div>
                   <div>
-                    <p className="mb-1 text-xs font-bold tracking-wide text-blue-300 uppercase">
-                      Phone
+                    <h4 className="text-sm font-semibold tracking-wider text-blue-100 uppercase">
+                      Call Us
+                    </h4>
+                    <p className="mt-1 text-lg font-medium">+91 91044 45059</p>
+                    <p className="text-sm text-slate-400">
+                      Mon-Fri, 9:30am - 5:30pm
                     </p>
-                    <p className="text-lg font-semibold">+91 98765 43210</p>
-                    <p className="text-sm text-blue-200">+91 40 1234 5678</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="flex items-center justify-center w-12 h-12 transition-colors bg-white/10 rounded-xl shrink-0 group-hover:bg-blue-500">
-                    <Mail className="text-white" size={20} />
+                {/* Email */}
+                <div className="flex gap-4">
+                  <div className="flex items-center justify-center w-12 h-12 text-blue-400 border rounded-lg bg-blue-500/10 border-blue-500/20 shrink-0">
+                    <Mail size={24} />
                   </div>
                   <div>
-                    <p className="mb-1 text-xs font-bold tracking-wide text-blue-300 uppercase">
-                      Email
+                    <h4 className="text-sm font-semibold tracking-wider text-blue-100 uppercase">
+                      Email Us
+                    </h4>
+                    <p className="mt-1 text-lg font-medium">
+                      contact@blueacademy.ai
                     </p>
-                    <p className="text-lg font-semibold">admissions@blue.com</p>
-                    <p className="text-sm text-blue-200">support@blue.com</p>
+                    <p className="text-sm text-slate-400">
+                      We reply within 24hrs
+                    </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 group">
-                  <div className="flex items-center justify-center w-12 h-12 transition-colors bg-white/10 rounded-xl shrink-0 group-hover:bg-blue-500">
-                    <MapPin className="text-white" size={20} />
+                {/* Office */}
+                <div className="flex gap-4">
+                  <div className="flex items-center justify-center w-12 h-12 text-blue-400 border rounded-lg bg-blue-500/10 border-blue-500/20 shrink-0">
+                    <MapPin size={24} />
                   </div>
                   <div>
-                    <p className="mb-1 text-xs font-bold tracking-wide text-blue-300 uppercase">
-                      Office
-                    </p>
-                    <p className="text-lg font-semibold">Blue Academy HQ</p>
-                    <p className="text-sm leading-relaxed text-blue-200">
-                      Financial District, Gachibowli,
+                    <h4 className="text-sm font-semibold tracking-wider text-blue-100 uppercase">
+                      Visit Us
+                    </h4>
+                    <p className="mt-1 text-base leading-relaxed text-slate-300">
+                      706, International Finance Center,
                       <br />
-                      Hyderabad, Telangana 500032
+                      VIP Road, Vesu,
+                      <br />
+                      Surat, Gujarat 395007
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 pt-8 mt-12 text-sm text-blue-200 border-t border-white/10">
-              <Clock size={16} />
-              <span>Mon - Sat, 9:00 AM - 6:00 PM IST</span>
+            {/* Social / Decoration */}
+            <div className="relative mt-12 lg:mt-0">
+              <div className="flex items-center gap-2 text-sm text-blue-300/80">
+                <CheckCircle size={16} />{" "}
+                <span>Priority Support for Students</span>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT: Contact Form (Connected to Backend) */}
-          <div className="p-10 bg-white lg:col-span-7 lg:p-16">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="group">
-                  <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
+          {/* RIGHT COLUMN: Form */}
+          <div className="p-10 bg-white lg:p-16 lg:col-span-7">
+            <h2 className="text-2xl font-bold text-slate-900">
+              Send us a message
+            </h2>
+            <p className="mt-2 mb-8 text-slate-500">
+              We would love to hear from you. Please fill out this form.
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-slate-700">
                     First Name
                   </label>
                   <input
@@ -169,12 +197,12 @@ export default function ContactPage() {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
+                    className="w-full px-4 py-3 transition-all border rounded-lg outline-none border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 bg-slate-50 focus:bg-white"
                     placeholder="John"
                   />
                 </div>
-                <div className="group">
-                  <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-slate-700">
                     Last Name
                   </label>
                   <input
@@ -183,15 +211,15 @@ export default function ContactPage() {
                     value={formData.lastName}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
+                    className="w-full px-4 py-3 transition-all border rounded-lg outline-none border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 bg-slate-50 focus:bg-white"
                     placeholder="Doe"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                <div className="group">
-                  <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-slate-700">
                     Email Address
                   </label>
                   <input
@@ -200,12 +228,12 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
+                    className="w-full px-4 py-3 transition-all border rounded-lg outline-none border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 bg-slate-50 focus:bg-white"
                     placeholder="john@example.com"
                   />
                 </div>
-                <div className="group">
-                  <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-slate-700">
                     Phone Number
                   </label>
                   <input
@@ -213,14 +241,14 @@ export default function ContactPage() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
-                    placeholder="+91 987..."
+                    className="w-full px-4 py-3 transition-all border rounded-lg outline-none border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 bg-slate-50 focus:bg-white"
+                    placeholder="+91 9876543210"
                   />
                 </div>
               </div>
 
-              <div className="group">
-                <label className="block mb-2 text-sm font-bold transition-colors text-slate-700 group-focus-within:text-blue-600">
+              <div>
+                <label className="block mb-2 text-sm font-medium text-slate-700">
                   Message
                 </label>
                 <textarea
@@ -228,66 +256,92 @@ export default function ContactPage() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 font-medium transition-all border outline-none bg-slate-50 border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-slate-900"
-                  placeholder="How can we help you?"
+                  className="w-full px-4 py-3 transition-all border rounded-lg outline-none resize-none border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 bg-slate-50 focus:bg-white"
+                  placeholder="Tell us more about your requirements..."
                 ></textarea>
               </div>
 
-              <div className="pt-2">
-                <button
-                  disabled={status === "Sending..."}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {status === "Sending..." ? "Sending..." : "Send Message"}{" "}
-                  <Send size={20} />
-                </button>
-                {status && (
-                  <p
-                    className={`text-center mt-4 text-sm font-bold ${
-                      status.includes("Success")
-                        ? "text-green-600"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {status}
-                  </p>
+              <button
+                disabled={status === "Sending..."}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-600/20 active:scale-[0.99] transition-all flex items-center justify-center gap-2 text-base disabled:opacity-70 disabled:cursor-not-allowed group"
+              >
+                {status === "Sending..."
+                  ? "Sending Message..."
+                  : "Send Message"}
+                {!status && (
+                  <Send
+                    size={18}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
                 )}
-              </div>
+              </button>
+
+              {status && (
+                <div
+                  className={`p-4 rounded-lg text-sm font-medium text-center ${
+                    status.includes("Success")
+                      ? "bg-green-50 text-green-700"
+                      : "bg-red-50 text-red-700"
+                  }`}
+                >
+                  {status}
+                </div>
+              )}
             </form>
           </div>
         </div>
       </div>
 
-      {/* 3. FAQ SECTION */}
-      <div className="max-w-3xl px-6 pb-24 mx-auto mt-24">
-        <h2 className="mb-10 text-3xl font-bold text-center text-slate-900">
-          Frequently Asked Questions
-        </h2>
-        <div className="space-y-4">
+      {/* 3. MAP SECTION (NEWLY ADDED) */}
+      <div className="w-full h-[450px] bg-slate-100 border-y border-slate-200">
+        <iframe
+          width="100%"
+          height="100%"
+          title="Blue Academy Location"
+          src="https://maps.google.com/maps?q=International%20Finance%20Center%20Vesu%20Surat&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          frameBorder="0"
+          scrolling="no"
+          marginHeight="0"
+          marginWidth="0"
+          className="w-full h-full grayscale-[0.3] hover:grayscale-0 transition-all duration-500"
+        ></iframe>
+      </div>
+
+      {/* 4. FAQ SECTION */}
+      <div className="px-6 pb-24 mx-auto mt-12 max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-slate-900">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-4 text-slate-500">
+            Quick answers to questions you might have.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {[
             {
-              q: "Where is Blue Academy located?",
-              a: "Our headquarters are in Hyderabad, Financial District. However, all our courses are available online globally.",
+              q: "Corporate Training?",
+              a: "We offer customized corporate training programs tailored to your company's tech stack and goals.",
             },
             {
-              q: "Can I get a refund if I cancel?",
-              a: "Yes, we offer a 7-day no-questions-asked refund policy for all our self-paced courses.",
+              q: "Refund Policy?",
+              a: "We have a 7-day refund policy for all self-paced courses, provided you haven't completed more than 20%.",
             },
             {
-              q: "Do you provide corporate training?",
-              a: "Absolutely. We have trained teams at 50+ Fortune 500 companies. Contact us for a custom quote.",
+              q: "Placement Support?",
+              a: "Yes, our career services team helps with resume building, mock interviews, and connecting you with hiring partners.",
             },
           ].map((faq, idx) => (
             <div
               key={idx}
-              className="p-6 transition-shadow bg-white border shadow-sm rounded-2xl border-slate-200 hover:shadow-md"
+              className="p-8 transition-shadow bg-white border shadow-sm rounded-2xl border-slate-100 hover:shadow-md"
             >
-              <h4 className="flex items-center gap-3 mb-2 font-bold text-slate-900">
-                <MessageSquare className="w-5 h-5 text-blue-500" /> {faq.q}
-              </h4>
-              <p className="pl-8 text-sm leading-relaxed text-slate-600">
-                {faq.a}
-              </p>
+              <div className="flex items-center justify-center w-10 h-10 mb-4 rounded-full bg-blue-50">
+                <HelpCircle className="text-blue-600" size={20} />
+              </div>
+              <h4 className="mb-2 text-lg font-bold text-slate-900">{faq.q}</h4>
+              <p className="text-sm leading-relaxed text-slate-600">{faq.a}</p>
             </div>
           ))}
         </div>
