@@ -48,10 +48,10 @@ const ShippingPolicy = () => {
               helpdesk on <br />
               <span className="font-semibold">+91-9104445059</span> or{" "}
               <a
-                href="mailto:contact@blueacademy.ai"
+                href="mailto:info@blueacademy.ai"
                 className="underline hover:text-blue-600"
               >
-                contact@blueacademy.ai
+                info@blueacademy.ai
               </a>
             </p>
           </div>

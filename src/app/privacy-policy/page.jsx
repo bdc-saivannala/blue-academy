@@ -144,10 +144,10 @@ const PrivacyPolicy = () => {
                 information for direct marketing purposes, you may change your
                 mind at any time by writing to or emailing us at{" "}
                 <a
-                  href="mailto:contact@blueacademy.ai"
+                  href="mailto:info@blueacademy.ai"
                   className="text-blue-600 hover:underline"
                 >
-                  contact@blueacademy.ai
+                  info@blueacademy.ai
                 </a>
               </li>
             </ul>
@@ -168,10 +168,10 @@ const PrivacyPolicy = () => {
               or contact us at{" "}
               <span className="font-semibold">+91-9104445059</span> or{" "}
               <a
-                href="mailto:contact@blueacademy.ai"
+                href="mailto:info@blueacademy.ai"
                 className="text-blue-600 hover:underline"
               >
-                contact@blueacademy.ai
+                info@blueacademy.ai
               </a>{" "}
               as soon as possible. We will promptly correct any information
               found to be incorrect.

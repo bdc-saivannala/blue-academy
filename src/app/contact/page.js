@@ -138,7 +138,7 @@ export default function ContactPage() {
                       Email Us
                     </h4>
                     <p className="mt-1 text-lg font-medium">
-                      contact@blueacademy.ai
+                      info@blueacademy.ai
                     </p>
                     <p className="text-sm text-slate-400">
                       We reply within 24hrs

@@ -386,7 +386,7 @@ export default async function CourseDetailPage({ params }) {
                   <Target size={24} className="text-blue-600" /> Course Outcomes
                 </h2>
                 <div
-                  className="text-sm leading-relaxed prose prose-slate max-w-none text-slate-700"
+                  className="text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500"
                   dangerouslySetInnerHTML={{ __html: course.outcomes }}
                 />
               </section>
@@ -400,16 +400,7 @@ export default async function CourseDetailPage({ params }) {
               <div
                 className="
       p-8 bg-white border rounded-2xl border-slate-200 
-      grid grid-cols-1 md:grid-cols-[30%_1fr] gap-y-8 gap-x-12 items-start
-       
-      /* Style Headings (Left Column) */
-      [&>h4]:text-sm [&>h4]:font-extrabold [&>h4]:text-slate-900 [&>h4]:leading-snug [&>h4]:mt-0.5
-       
-      /* Style Paragraphs (Right Column) */
-      [&>p]:text-sm [&>p]:text-slate-600 [&>p]:leading-relaxed [&>p]:m-0
-       
-      /* Handle Lists if present (span full width or fit in col) */
-      [&>ul]:col-span-2 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:text-sm [&>ul]:text-slate-600
+      grid grid-cols-1 gap-y-8 gap-x-12 items-start text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500
     "
                 dangerouslySetInnerHTML={{
                   __html: course.prerequisites || fallbackPrerequisites,
@@ -476,7 +467,7 @@ export default async function CourseDetailPage({ params }) {
                     <div className="px-6 pb-8 pl-[5.5rem]">
                       {/* Description */}
                       <div
-                        className="pl-4 text-sm leading-relaxed prose-sm prose border-l-2 text-slate-300 prose-invert max-w-none border-white/10"
+                        className="pl-4 text-sm leading-relaxed prose-sm prose border-l-2 text-slate-300 prose-invert max-w-none border-white/10 [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500"
                         dangerouslySetInnerHTML={{ __html: project.details }}
                       />
 
@@ -1043,7 +1034,7 @@ export default async function CourseDetailPage({ params }) {
 
                   <div className="px-5 pb-6 pl-[3.5rem]">
                     <div
-                      className="text-sm leading-relaxed prose-sm prose text-slate-600 max-w-none md:text-base"
+                      className="text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500 md:text-base"
                       dangerouslySetInnerHTML={{ __html: faq.a }}
                     />
                   </div>

@@ -1,13 +1,8 @@
-"use client";
-
+// src/app/layout.js
 import "./globals.css";
-import { usePathname } from "next/navigation";
+import Providers from "./Providers";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import ScheduleCallButton from "@/components/ScheduleCallButton"; // Bottom-24
-import InstantCall from "@/components/InstantCall"; // Bottom-48 (Updated in Step 1)
-import Script from "next/script";
+import ClientLayout from "@/components/ClientLayout"; // Import the new component
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -15,35 +10,25 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
-export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  const isAdminPage = pathname && pathname.startsWith("/admin");
+// This now works perfectly because this file is a Server Component
+export const metadata = {
+  title: "Blue Academy",
+  description: "Created by BDC",
+  icons: {
+    icon: "/favicon-logo-BA.png",
+  },
+};
 
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
         className={`${jakarta.className} font-sans bg-slate-50 text-slate-900`}
       >
-        {!isAdminPage && <Navbar />}
-        <main className={!isAdminPage ? "min-h-screen" : ""}>{children}</main>
-
-        {/* --- FLOATING ACTIONS --- */}
-        {!isAdminPage && (
-          <>
-            {/* 1. Lead Form (Highest: bottom-48) */}
-            <InstantCall />
-            {/* 2. Schedule Call (Middle: bottom-24) */}
-            <ScheduleCallButton />
-            {/* 3. Chat Widget (Lowest: bottom-0/4) */}
-
-            <Script
-              src="https://blue-academy-pre-sales-v1-0.onrender.com/chat-widget/chat-widget.js"
-              strategy="lazyOnload"
-            />
-          </>
-        )}
-
-        {!isAdminPage && <Footer />}
+        <Providers>
+          {/* Pass children to the client wrapper */}
+          <ClientLayout>{children}</ClientLayout>
+        </Providers>
       </body>
     </html>
   );

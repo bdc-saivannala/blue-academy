@@ -1,19 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   LayoutDashboard,
-  FileText,
+  ShoppingCart,
   BookOpen,
+  Mail,
   LogOut,
-  ShieldCheck,
 } from "lucide-react";
 
 export default function AdminLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentTab = searchParams.get("tab") || "overview"; // Default to overview
+
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
@@ -44,11 +47,32 @@ export default function AdminLayout({ children }) {
       </div>
     );
 
-  // Sidebar Links
+  // ✅ UPDATED SIDEBAR LINKS
   const navItems = [
-    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Applications", href: "/admin?tab=general", icon: FileText },
-    { name: "Manage Courses", href: "/admin?tab=courses", icon: BookOpen },
+    {
+      name: "Overview",
+      href: "/admin",
+      tab: "overview", // Matches default
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Purchases",
+      href: "/admin?tab=purchases",
+      tab: "purchases",
+      icon: ShoppingCart,
+    },
+    {
+      name: "Manage Courses",
+      href: "/admin?tab=courses",
+      tab: "courses",
+      icon: BookOpen,
+    },
+    {
+      name: "Inquiries",
+      href: "/admin?tab=inquiries",
+      tab: "inquiries",
+      icon: Mail,
+    },
   ];
 
   return (
@@ -61,7 +85,7 @@ export default function AdminLayout({ children }) {
             <div className="flex items-center justify-center rounded-lg">
               <Image
                 src="/favicon-logo-BA.png"
-                alt="Sample Photo"
+                alt="Blue Academy"
                 width={25}
                 height={25}
               />
@@ -75,9 +99,11 @@ export default function AdminLayout({ children }) {
         {/* Navigation */}
         <nav className="flex-1 px-4 py-6 space-y-2">
           {navItems.map((item) => {
+            // Check if this item is active based on the URL tab param
             const isActive =
-              pathname === item.href ||
-              (item.href.includes("?tab") && pathname === "/admin");
+              item.tab === currentTab ||
+              (item.tab === "overview" && !searchParams.get("tab"));
+
             return (
               <Link
                 key={item.name}
