@@ -18,12 +18,45 @@ import {
   Shield,
   ChevronLeft,
   ChevronRight,
+  X,
 } from "lucide-react";
+
+const VideoModal = ({ isOpen, onClose, videoSrc }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+      {/* Close Button (Top Right) */}
+      <button
+        onClick={onClose}
+        className="absolute transition-colors top-6 right-6 text-white/70 hover:text-white"
+      >
+        <X size={32} />
+      </button>
+
+      {/* Video Container */}
+      <div className="relative w-full max-w-5xl mx-4 overflow-hidden bg-black shadow-2xl aspect-video rounded-2xl">
+        <video
+          src={videoSrc}
+          className="object-contain w-full h-full"
+          controls
+          autoPlay
+        >
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      {/* Click outside to close */}
+      <div className="absolute inset-0 -z-10" onClick={onClose}></div>
+    </div>
+  );
+};
 
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("All");
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // --- STATE FOR WHY CHOOSE US CAROUSEL ---
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -150,7 +183,10 @@ export default function HomePage() {
               >
                 Explore Courses <ArrowRight size={18} />
               </Link>
-              <button className="px-8 py-3.5 bg-white text-slate-700 font-bold border border-slate-200 rounded-lg hover:bg-slate-50 transition-all flex items-center gap-2">
+              <button
+                onClick={() => setIsVideoOpen(true)}
+                className="flex items-center gap-2 px-8 py-3.5 font-bold transition-all bg-white border rounded-lg text-slate-700 border-slate-200 hover:bg-slate-50"
+              >
                 <Play size={18} className="fill-slate-700" /> Watch Video
               </button>
             </div>
@@ -175,29 +211,6 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-
-          {/* Right Image */}
-          {/* <div className="relative z-10">
-            <div className="relative overflow-hidden shadow-2xl rounded-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
-                alt="Students learning"
-                className="object-cover w-full h-full"
-              />
-
-              <div className="absolute flex items-center gap-3 p-4 bg-white rounded-lg shadow-xl bottom-8 left-8 animate-bounce-slow">
-                <div className="flex items-center justify-center w-10 h-10 text-white bg-green-500 rounded-full">
-                  <CheckCircle size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-bold uppercase text-slate-500">
-                    Success Rate
-                  </p>
-                  <p className="text-lg font-bold text-slate-900">98% Hired</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -685,6 +698,12 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* 3. RENDER THE MODAL AT THE BOTTOM */}
+      <VideoModal
+        isOpen={isVideoOpen}
+        onClose={() => setIsVideoOpen(false)}
+        videoSrc="https://s3.ap-south-1.amazonaws.com/bluedataconsulting.co/blue-academy/Blue+Academy+Teaser+R2.mp4" // video link here
+      />
     </div>
   );
 }

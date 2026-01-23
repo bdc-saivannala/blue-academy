@@ -112,7 +112,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-3xl font-bold text-blue-600">15k+</p>
                 <p className="mt-1 text-sm font-medium tracking-wide uppercase text-slate-500">
-                  Students
+                  Learners
                 </p>
               </div>
               <div>
@@ -163,7 +163,7 @@ export default function AboutPage() {
               </h3>
               <p className="text-lg leading-relaxed text-slate-400">
                 To democratize high-quality tech education and provide
-                accessible, industry-relevant training to students worldwide,
+                accessible, industry-relevant training to learners worldwide,
                 bridging the gap between academia and industry requirements.
               </p>
             </div>
@@ -254,10 +254,12 @@ export default function AboutPage() {
                 <h3 className="mb-3 text-2xl font-bold leading-tight">
                   {member.name}
                 </h3>
-
+                <p className="mb-2 text-xs font-bold tracking-widest text-blue-100 uppercase">
+                  {member.role}
+                </p>
                 {/* Description (Fades in on hover) */}
-                <div className="overflow-hidden transition-all duration-500 opacity-0 max-h-0 group-hover:max-h-32 group-hover:opacity-100">
-                  {/* <p className="text-sm leading-relaxed text-slate-300">
+                {/* <div className="overflow-hidden transition-all duration-500 opacity-0 max-h-0 group-hover:max-h-32 group-hover:opacity-100">
+                  <p className="text-sm leading-relaxed text-slate-300">
                     {member.desc}
                   </p>
 
@@ -280,11 +282,8 @@ export default function AboutPage() {
                     >
                       <Globe size={16} />
                     </a>
-                  </div> */}
-                  <p className="mb-2 text-xs font-bold tracking-widest text-blue-100 uppercase">
-                    {member.role}
-                  </p>
-                </div>
+                  </div>
+                </div> */}
 
                 {/* Arrow hint (Disappears on hover) */}
                 <div className="mt-4 transition-opacity duration-300 opacity-100 group-hover:opacity-0">
@@ -303,7 +302,7 @@ export default function AboutPage() {
             Ready to start your journey?
           </h2>
           <p className="max-w-2xl mx-auto mb-8 text-lg text-blue-100">
-            Join thousands of students who have transformed their careers with
+            Join thousands of learners who have transformed their careers with
             Blue Academy.
           </p>
           <Link

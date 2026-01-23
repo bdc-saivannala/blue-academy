@@ -92,7 +92,7 @@ export default function AdminDashboard() {
     .filter((e) => e.status === "Paid")
     .reduce((acc, curr) => acc + (curr.amount || 0), 0);
 
-  const totalStudents = enrollments.filter((e) => e.status === "Paid").length;
+  const totalLearners = enrollments.filter((e) => e.status === "Paid").length;
 
   const stats = [
     {
@@ -103,8 +103,8 @@ export default function AdminDashboard() {
       bg: "bg-green-100",
     },
     {
-      label: "Paid Students",
-      value: totalStudents,
+      label: "Paid Learners",
+      value: totalLearners,
       icon: Users,
       color: "text-blue-600",
       bg: "bg-blue-100",

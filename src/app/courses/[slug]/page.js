@@ -400,7 +400,7 @@ export default async function CourseDetailPage({ params }) {
               <div
                 className="
       p-8 bg-white border rounded-2xl border-slate-200 
-      grid grid-cols-1 gap-y-8 gap-x-12 items-start text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500
+      grid grid-cols-1 items-start text-sm text-slate-700 prose prose-sm max-w-none [&_ul]:list-disc [&_ul]:pl-5 [&_li]:mb-1 [&_li::marker]:text-blue-500
     "
                 dangerouslySetInnerHTML={{
                   __html: course.prerequisites || fallbackPrerequisites,

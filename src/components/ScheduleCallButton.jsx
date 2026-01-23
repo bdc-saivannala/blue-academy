@@ -5,7 +5,7 @@ import { Headset } from "lucide-react";
 const ScheduleCallButton = () => {
   return (
     <a
-      href="https://outlook.office.com/bookwithme/user/74bcd3456aa44cdd96054ef88ae4c4f7@bluedataconsulting.in?anonymous&ismsaljsauthenabled&ep=plink"
+      href="https://outlook.office.com/book/BlueAcademy@bluedataconsulting.in/?ismsaljsauthenabled"
       target="_blank"
       rel="noopener noreferrer"
       // Change: Added overflow-hidden and adjusted padding/width logic

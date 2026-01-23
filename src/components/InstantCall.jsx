@@ -1,38 +1,87 @@
 "use client";
-import React, { useState } from "react";
-import { Phone, X, Loader2, Send } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import {
+  Phone,
+  X,
+  Loader2,
+  Send,
+  ChevronDown,
+  Check,
+  Search,
+} from "lucide-react";
+// 1. FIXED IMPORT: The library exports 'countries', not 'allCountries'
+import { countries } from "country-codes-flags-phone-codes";
 
 export default function InstantCall() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // --- DROPDOWN STATES ---
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
-    country_code: "+91",
+    country_code: "+91", // Default Code
     phone_number: "",
     interest: "",
   });
+
+  // 2. Format the imported data
+  // We map the library's 'dialCode' to our 'code' property
+  const countryList = useMemo(() => {
+    // The library might return undefined for some entries, so we filter them if needed
+    if (!countries) return [];
+
+    return countries.map((country) => ({
+      name: country.name,
+      flag: country.flag,
+      code: country.dialCode,
+    }));
+  }, []);
+
+  // Filter countries based on search
+  const filteredCountries = useMemo(() => {
+    return countryList.filter(
+      (c) =>
+        c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        c.code.includes(searchQuery),
+    );
+  }, [searchQuery, countryList]);
+
+  // Get current selected country details
+  const selectedCountry = useMemo(() => {
+    return (
+      countryList.find((c) => c.code === formData.country_code) ||
+      countryList.find((c) => c.code === "+91") || { flag: "🌍", code: "+91" }
+    );
+  }, [formData.country_code, countryList]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleCountrySelect = (code) => {
+    setFormData({ ...formData, country_code: code });
+    setShowCountryDropdown(false);
+    setSearchQuery(""); // Reset search after selection
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // 1. Format the full phone number (Country Code + Number)
+    setLoading(true);
 
     const fullPhoneNumber = `${formData.country_code}${formData.phone_number}`;
 
     try {
-      // --- STEP 1: Save Lead to your Backend (Existing Logic) ---
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const data = await res.json(); // --- STEP 2: Trigger Vapi.ai Call (New Logic) --- // Only trigger call if lead save was successful (or remove the 'if' to call regardless)
+      const data = await res.json();
 
       if (res.ok && data.success) {
         const vapiPayload = {
@@ -54,11 +103,10 @@ export default function InstantCall() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // ⚠️ IMPORTANT: Replace below with your actual Vapi Private Key
             Authorization: "Bearer 9e769cc3-ecfc-47b1-82c3-803c7585f048",
           },
           body: JSON.stringify(vapiPayload),
-        }); // Success State
+        });
 
         setSuccess(true);
         setTimeout(() => {
@@ -169,17 +217,106 @@ export default function InstantCall() {
                       Phone Number
                     </label>
                     <div className="flex gap-3">
-                      <select
-                        name="country_code"
-                        value={formData.country_code}
-                        onChange={handleChange}
-                        className="px-3 py-3 font-medium border rounded-lg bg-slate-50 border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      >
-                        <option value="+91">IN (+91)</option>
-                        <option value="+1">US (+1)</option>
-                        <option value="+44">UK (+44)</option>
-                        <option value="+61">AU (+61)</option>
-                      </select>
+                      {/* --- CUSTOM DROPDOWN COMPONENT --- */}
+                      <div className="relative">
+                        {/* 1. Trigger Button */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setShowCountryDropdown(!showCountryDropdown)
+                          }
+                          className="flex items-center justify-between min-w-[110px] h-full px-3 py-3 font-medium border rounded-lg bg-slate-50 border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                          <span className="flex items-center gap-2">
+                            {/* Display flag and code safely */}
+                            <span className="text-xl leading-none">
+                              {selectedCountry?.flag || "🌍"}
+                            </span>
+                            <span className="text-sm text-slate-700">
+                              {formData.country_code}
+                            </span>
+                          </span>
+                          <ChevronDown
+                            size={14}
+                            className={`ml-2 text-slate-400 transition-transform ${showCountryDropdown ? "rotate-180" : ""}`}
+                          />
+                        </button>
+
+                        {/* 2. Dropdown Menu */}
+                        {showCountryDropdown && (
+                          <>
+                            {/* Backdrop to close on click outside */}
+                            <div
+                              className="fixed inset-0 z-10"
+                              onClick={() => setShowCountryDropdown(false)}
+                            />
+
+                            <div className="absolute left-0 z-20 flex flex-col mt-2 overflow-hidden duration-200 bg-white border shadow-xl top-full w-72 border-slate-200 rounded-xl max-h-72 animate-in fade-in zoom-in-95">
+                              {/* Search Bar */}
+                              <div className="sticky top-0 p-2 border-b border-slate-100 bg-slate-50">
+                                <div className="relative">
+                                  <Search
+                                    className="absolute -translate-y-1/2 left-3 top-1/2 text-slate-400"
+                                    size={14}
+                                  />
+                                  <input
+                                    autoFocus
+                                    type="text"
+                                    placeholder="Search country..."
+                                    value={searchQuery}
+                                    onChange={(e) =>
+                                      setSearchQuery(e.target.value)
+                                    }
+                                    className="w-full py-2 pr-3 text-sm bg-white border rounded-lg pl-9 border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* List of Countries */}
+                              <div className="flex-1 overflow-y-auto">
+                                {filteredCountries.length > 0 ? (
+                                  filteredCountries.map((country, index) => (
+                                    <button
+                                      key={`${country.code}-${index}`}
+                                      type="button"
+                                      onClick={() =>
+                                        handleCountrySelect(country.code)
+                                      }
+                                      className="flex items-center w-full px-4 py-3 text-left transition-colors border-b hover:bg-slate-50 border-slate-50 last:border-0 group"
+                                    >
+                                      <span className="mr-3 text-xl">
+                                        {country.flag}
+                                      </span>
+                                      <div className="flex flex-col">
+                                        <span className="text-sm font-medium text-slate-700 group-hover:text-blue-700">
+                                          {country.name}
+                                        </span>
+                                        <span className="text-xs text-slate-400">
+                                          {country.code}
+                                        </span>
+                                      </div>
+
+                                      {formData.country_code ===
+                                        country.code && (
+                                        <Check
+                                          size={16}
+                                          className="ml-auto text-blue-600"
+                                        />
+                                      )}
+                                    </button>
+                                  ))
+                                ) : (
+                                  <div className="p-4 text-sm text-center text-slate-400">
+                                    No country found
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      {/* --- END CUSTOM DROPDOWN --- */}
+
                       <input
                         required
                         type="tel"
@@ -196,23 +333,14 @@ export default function InstantCall() {
                     <label className="block mb-1 text-xs font-bold uppercase text-slate-500">
                       Interest / Skill
                     </label>
-                    <select
+                    <input
                       required
                       name="interest"
                       value={formData.interest}
                       onChange={handleChange}
+                      placeholder="Your Interest or Skill"
                       className="w-full px-4 py-3 transition-all border rounded-lg bg-slate-50 border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="" disabled>
-                        Select Interest
-                      </option>
-                      <option value="AI & Machine Learning">
-                        AI & Machine Learning
-                      </option>
-                      <option value="Generative AI">Generative AI</option>
-                      <option value="Data Science">Data Science</option>
-                      <option value="Web Development">Web Development</option>
-                    </select>
+                    />
                   </div>
 
                   <button

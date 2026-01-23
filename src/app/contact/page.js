@@ -171,7 +171,7 @@ export default function ContactPage() {
             <div className="relative mt-12 lg:mt-0">
               <div className="flex items-center gap-2 text-sm text-blue-300/80">
                 <CheckCircle size={16} />{" "}
-                <span>Priority Support for Students</span>
+                <span>Priority Support for Professionals & Learners</span>
               </div>
             </div>
           </div>
@@ -326,11 +326,11 @@ export default function ContactPage() {
             },
             {
               q: "Refund Policy?",
-              a: "We have a 7-day refund policy for all self-paced courses, provided you haven't completed more than 20%.",
+              a: "Application fee is not refundable. we shall refund the Program fee within 7 days after starting the course.",
             },
             {
-              q: "Placement Support?",
-              a: "Yes, our career services team helps with resume building, mock interviews, and connecting you with hiring partners.",
+              q: "Certification Support?",
+              a: "Yes, We shall help all learners to get certification as per their course.",
             },
           ].map((faq, idx) => (
             <div
